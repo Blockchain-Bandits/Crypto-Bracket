@@ -1,0 +1,26 @@
+{
+  "name": "crypto-bracket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bittrex.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blockchain-Bandits/Crypto-Bracket.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blockchain-Bandits/Crypto-Bracket/issues"
+  },
+  "homepage": "https://github.com/Blockchain-Bandits/Crypto-Bracket#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0",
+    "node-bittrex-api": "^0.7.8",
+    "path": "^0.12.7"
+  }
+}
