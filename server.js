@@ -3,6 +3,7 @@ var bodyParser = require("body-parser");
 
 var app = express();
 
+
 // Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 8080;
 
@@ -25,6 +26,20 @@ require("./routes/htmlRoutes")(app);
 // LISTENER
 // The below code effectively "starts" our server
 // =============================================================================
+
+var mysql = require("mysql");
+
+var connection = mysql.createConnection({
+	host: "localhost",
+	port: 3306,
+
+	// Your username
+	user: "root",
+
+	// Your password
+	password: "",
+	database: "masterAuth"
+});
 
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
