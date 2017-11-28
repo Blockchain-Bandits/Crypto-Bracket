@@ -1,0 +1,46 @@
+var express = require("express");
+var bittrex = require('node-bittrex-api');
+
+var router = express.Router();
+
+var transactions = require("../models/transactions.js");
+
+var user = 1;
+
+var price;
+bittrex.getticker( { market : 'USDT-BTC' }, function( data, err ) {
+    price = data.result.Last;
+});
+
+router.get("/api/transactions/:coin/:method", function(req, res) {
+    var coin = req.params.coin;
+    var coinPrice;
+    bittrex.getticker( { market : `BTC-${coin}` }, function( data, err ) {
+        coinPrice = data.result.Last * price;
+
+        if (req.params.method === 'fifo') {
+            transactions.selectAllFIFO(user, coin, function(data) {
+                data.push({currentPrice: coinPrice});
+                res.json(data);
+            });
+        } else if (req.params.method === 'lifo') {
+            transactions.selectAllLIFO(user, coin, function(data) {
+                data.push({currentPrice: coinPrice});
+                res.json(data);
+            });
+        } else if (req.params.method === 'avg') {
+            transactions.selectAllAvg(user, coin, function(data) {
+                data.push({currentPrice: coinPrice});
+                res.json(data);
+            });
+        }
+    });
+    
+});
+router.get("/api/transactions", function(req, res) {
+    transactions.getCoins(function(data) {
+        res.json(data);
+    });
+});
+
+module.exports = router;
