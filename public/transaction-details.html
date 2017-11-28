@@ -94,13 +94,13 @@
                 var totalDiff = unitDiff * tableData[i].units;
                 var percent = tableData[i].units < 0 ? "" : ((tableData[i].total_cost + totalDiff) / tableData[i].total_cost) * 100;
                 $("#transactions").append("<tr><td>" + tableData[i].date +
-                    "</td><td>" + tableData[i].cost +
-                    "</td><td>" + tableData[i].price +
-                    "</td><td>" + tableData[i].units +
-                    "</td><td>" + tableData[i].total_cost +
-                    "</td><td>" + unitDiff +
-                    "</td><td>" + totalDiff +
-                    "</td><td>" + percent + "</td></tr>"
+                    "</td><td>$" + tableData[i].cost.toFixed(2) +
+                    "</td><td>$" + tableData[i].price.toFixed(2) +
+                    "</td><td>$" + tableData[i].units.toFixed(2) +
+                    "</td><td>$" + tableData[i].total_cost.toFixed(2) +
+                    "</td><td>$" + unitDiff.toFixed(2) +
+                    "</td><td>$" + totalDiff.toFixed(2) +
+                    "</td><td>" + percent.toFixed(2) + "%</td></tr>"
                 );
             }
         });

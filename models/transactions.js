@@ -6,6 +6,11 @@ var transactions = {
       cb(res);
     });
   },
+  getPrice: function(date, cb) {
+    orm.getPrice(date, function(res) {
+      cb(res);
+    });
+  },
   selectAllFIFO: function(user, coin, cb) {
     orm.selectAll("transactionsFIFO", user, coin, function(res) {
       cb(res);

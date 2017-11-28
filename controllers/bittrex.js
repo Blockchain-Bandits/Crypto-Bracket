@@ -1,4 +1,5 @@
 var bittrex = require('node-bittrex-api');
+var moment = require('moment');
 var connection = require("./config/connection.js");
 var transactions = require("../models/transactions.js");
 var apiKey = 'e44801d861364fd987f1b980b65c199f';
@@ -9,16 +10,21 @@ bittrex.options({
   'apisecret' : apiSecret
 });
 
-var price;
-bittrex.getticker( { market : 'USDT-BTC' }, function( data, err ) {
-    price = data.result.Last;
-});
+// var price;
+// bittrex.getticker( { market : 'USDT-BTC' }, function( data, err ) {
+//     price = data.result.Last;
+// });
 bittrex.getorderhistory({}, function( data, err ) {
     if (err) throw err;
     
     data.result.forEach(function(transaction) {
         var buy;
         var sell;
+        var price;
+        var date = moment(transaction.Closed).format("MMM DD, YYYY");
+        transactions.getPrice(date, function(result) {
+            price = result[0].price;
+        });
         var exchange = transaction.Exchange.split("-");
         if (transaction.OrderType === 'LIMIT_BUY') {
             buy = exchange[1];
@@ -35,15 +41,16 @@ bittrex.getorderhistory({}, function( data, err ) {
             units: transaction.Quantity
         }
         console.log(transactionData);
-        //createTrade(transactionData.heldCoin, transactionData.targetCoin, transactionData.targetCoinPrice, transactionData.rate, transactionData.units);
+        //createTrade(transactionData.heldCoin, transactionData.targetCoin, transactionData.targetCoinPrice, transactionData.date, transactionData.rate, transactionData.units);
     });
 });
 
-function createBuy(coin, cost, units) {
+function createBuy(coin, cost, date, units) {
     console.log("Inserting a new purchase...\n");
     var objColVals = {
         user_id: user,
         coin: coin,
+        date: date,
         cost: cost,
         price: cost,
         units: units,
@@ -51,20 +58,20 @@ function createBuy(coin, cost, units) {
     };
     transactions.insertOneFIFO(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     transactions.insertOneLIFO(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     transactions.insertOneAvg(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     
 }
 
-function calculateAvgCost(coin, price, units) {
+function calculateAvgCost(coin, date, price, units) {
     var totalCost = 0;
     var totalUnits = 0;
     var cost = 0;
@@ -75,7 +82,7 @@ function calculateAvgCost(coin, price, units) {
         }
         cost = -totalCost / totalUnits;
         console.log(cost);
-        createSaleAvgCost(coin, cost, price, units);
+        createSaleAvgCost(coin, cost, date, price, units);
     });
     // connection.query(
     //     "SELECT * FROM transactionsAvg WHERE ? AND ?", 
@@ -98,19 +105,20 @@ function calculateAvgCost(coin, price, units) {
     // );
 }
 
-function createSaleAvgCost(coin, cost, price, units) {
+function createSaleAvgCost(coin, cost, date, price, units) {
     console.log("Inserting a new sale...\n");
     var objColVals = {
         user_id: user,
         coin: coin,
         cost: cost,
+        date: date,
         price: price,
         units: -units,
         total_cost: cost * units,
     };
     transactions.insertOneAvg(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     // connection.query(
     //     "INSERT INTO transactionsAvg SET ?",
@@ -127,10 +135,10 @@ function createSaleAvgCost(coin, cost, price, units) {
     //         console.log(res.affectedRows + " sale inserted (avg-cost)!\n");
     //     }
     // );
-    calculateFIFO(coin, price, units);
+    calculateFIFO(coin, date, price, units);
 }
 
-function calculateFIFO(coin, price, units) {
+function calculateFIFO(coin, date, price, units) {
     var totalCost = 0;
     var totalUnits = 0;
     var cost = 0;
@@ -166,7 +174,7 @@ function calculateFIFO(coin, price, units) {
         }
         cost = -totalCost / units;
         console.log(cost);
-        createSaleFIFO(coin, cost, price, units);
+        createSaleFIFO(coin, cost, date, price, units);
     });
     // connection.query(
     //     "SELECT * FROM transactionsFIFO WHERE ? AND ?", 
@@ -213,19 +221,20 @@ function calculateFIFO(coin, price, units) {
     // );
 }
 
-function createSaleFIFO(coin, cost, price, units) {
+function createSaleFIFO(coin, cost, date, price, units) {
     console.log("Inserting a new sale...\n");
     var objColVals = {
         user_id: user,
         coin: coin,
         cost: cost,
+        date: date,
         price: price,
         units: -units,
         total_cost: cost * units,
     };
     transactions.insertOneFIFO(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     // connection.query(
     //     "INSERT INTO transactionsFIFO SET ?",
@@ -242,10 +251,10 @@ function createSaleFIFO(coin, cost, price, units) {
     //         console.log(res.affectedRows + " sale inserted (FIFO)!\n");
     //     }
     // );
-    calculateLIFO(coin, price, units);
+    calculateLIFO(coin, date, price, units);
 }
 
-function calculateLIFO(coin, price, units) {
+function calculateLIFO(coin, date, price, units) {
     var totalCost = 0;
     var totalUnits = 0;
     var cost = 0;
@@ -282,7 +291,7 @@ function calculateLIFO(coin, price, units) {
         }
         cost = -totalCost / units;
         console.log(cost);
-        createSaleLIFO(coin, cost, price, units);
+        createSaleLIFO(coin, cost, date, price, units);
     });
     // connection.query(
     //     "SELECT * FROM transactionsLIFO WHERE ? AND ?", 
@@ -336,19 +345,20 @@ function calculateLIFO(coin, price, units) {
     // );
 }
 
-function createSaleLIFO(coin, cost, price, units) {
+function createSaleLIFO(coin, cost, date, price, units) {
     console.log("Inserting a new sale...\n");
     var objColVals = {
         user_id: user,
         coin: coin,
         cost: cost,
+        date: date,
         price: price,
         units: -units,
         total_cost: cost * units,
     };
     transactions.insertOneLIFO(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     // connection.query(
     //     "INSERT INTO transactionsLIFO SET ?",
@@ -368,7 +378,7 @@ function createSaleLIFO(coin, cost, price, units) {
     // connection.end();
 }
 
-function createTrade(heldCoin, targetCoin, targetCoinPrice, rate, units) {
+function createTrade(heldCoin, targetCoin, targetCoinPrice, date, rate, units) {
     console.log("Inserting a new purchase...\n");
     var price = targetCoinPrice * rate;
     var receiveUnits = units * rate;
@@ -377,21 +387,22 @@ function createTrade(heldCoin, targetCoin, targetCoinPrice, rate, units) {
         user_id: user,
         coin: targetCoin,
         cost: targetCoinPrice,
+        date: date,
         price: targetCoinPrice,
         units: receiveUnits,
         total_cost: totalCost,
     };
     transactions.insertOneFIFO(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     transactions.insertOneLIFO(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     transactions.insertOneAvg(objColVals, function(result) {
         // Send back the ID of the new quote
-        res.json({ id: result.insertId });
+        result.json({ id: result.insertId });
     });
     // connection.query(
     //     "INSERT INTO transactionsAvg SET ?",
@@ -438,5 +449,5 @@ function createTrade(heldCoin, targetCoin, targetCoinPrice, rate, units) {
     //         console.log(res.affectedRows + " purchase inserted (LIFO)!\n");
     //     }
     // );
-    calculateAvgCost(heldCoin, price, units);
+    calculateAvgCost(heldCoin, date, price, units);
 }
