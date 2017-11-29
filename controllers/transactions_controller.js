@@ -41,6 +41,10 @@ router.get("/api/transactions", function(req, res) {
     transactions.getCoins(function(data) {
         res.json(data);
     });
+    // var date = moment("2017-11-08T18:30:30.05").format("MMM DD, YYYY");
+    // transactions.getPrice(date, function(result) {
+    //     console.log(result[0].price);
+    // });
 });
 
 module.exports = router;

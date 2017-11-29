@@ -49,6 +49,15 @@ var orm = {
       cb(result);
     });
   },
+  getPrice: function(date, cb) {
+    var queryString = "SELECT price FROM btc_price WHERE date ='" + date + "';";
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    });
+  },
   selectAll: function(tableInput, user, coin, cb) {
     var queryString = "SELECT * FROM " + tableInput + " WHERE user_id = ? AND coin = ?;";
     connection.query(queryString, [user, coin], function(err, result) {
