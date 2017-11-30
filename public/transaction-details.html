@@ -1,20 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Custom icon font-->
+    <link rel="stylesheet" href="assets/css/fontastic.css">
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <!-- jQuery Circle-->
+    <link rel="stylesheet" href="assets/css/grasp_mobile_progress_circle-1.0.0.min.css">
+    <!-- Custom Scrollbar-->
+    <link rel="stylesheet" href="assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="assets/css/style.blue.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="assets/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="favicon.png">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
     <meta charset="UTF-8">
     <title>Transactions Page</title>
-
-    <!-- Latest compiled and minified CSS & JS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <!-- theme stylesheet -->
-<link rel="stylesheet" href="assets/css/style.default.css" id="theme-stylesheet"> 
 </head>
+
 <body>
+    <!-- Side Navbar -->
+    <nav class="side-navbar">
+        <div class="side-navbar-wrapper">
+            <div class="sidenav-header d-flex align-items-center justify-content-center">
+                <div class="sidenav-header-inner text-center"><img src="img/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
+                    <h2 class="h5 text-uppercase">Anderson Hardy</h2><span class="text-uppercase">Web Developer</span>
+                </div>
+                <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+            </div>
+            <div class="main-menu">
+                <ul id="side-main-menu" class="side-menu list-unstyled">
+                    <li><a href="index.html"> <i class="icon-home"></i><span>Home</span></a></li>
+                    <li class="active"> <a href="forms.html"><i class="icon-form"></i><span>Forms</span></a></li>
+                    <li> <a href="charts.html"><i class="icon-presentation"></i><span>Charts</span></a></li>
+                    <li> <a href="tables.html"> <i class="icon-grid"> </i><span>Tables  </span></a></li>
+                    <li> <a href="login.html"> <i class="icon-interface-windows"></i><span>Login page                        </span></a></li>
+                </ul>
+            </div>
+            </ul>
+        </div>
+        </div>
+    </nav>
 
+            <!-- navbar-->
+        <header class="header">
+            <nav class="navbar">
+                <div class="container-fluid">
+                    <div class="navbar-holder d-flex align-items-center justify-content-between">
+                        <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a>
+                            <a href="index.html" class="navbar-brand">
+                                <div class="brand-text d-none d-md-inline-block"><span>Bootstrap </span><strong class="text-primary">Dashboard</strong></div>
+                            </a>
+                        </div>
     <div class="container">
-
         <div class="row">
             <div class="col-lg-12">
                 <select id="select-coin" class="form-control">
@@ -22,7 +75,6 @@
                     <option value="BTC">BTC</option>
                     <option value="ETH">ETH</option>
                 </select>
-
                 <!-- Current Tables in Use -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -49,27 +101,22 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </body>
-
-
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
 <script type="text/javascript">
+// In this code, jQuery is used to "download" the data from our server
+// We then dynamically display this content in our table. This is very similar to the group projects you just completed.
+// It's also very similar to the NYT search application. In fact, I copied a ton of code from there.
 
-    // In this code, jQuery is used to "download" the data from our server
-    // We then dynamically display this content in our table. This is very similar to the group projects you just completed.
-    // It's also very similar to the NYT search application. In fact, I copied a ton of code from there.
+function runTableQuery(coin) {
+    $("#transactions").empty();
+    // Here we get the location of the root page.
+    // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+    var currentURL = window.location.origin;
 
-    function runTableQuery(coin) {
-        $("#transactions").empty();
-        // Here we get the location of the root page.
-        // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
-        var currentURL = window.location.origin;
-
-        // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-        $.ajax({ url: currentURL + `/api/transactions/${coin}`, method: "GET" })
+    // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+    $.ajax({ url: currentURL + `/api/transactions/${coin}`, method: "GET" })
         .done(function(tableData) {
 
             // Here we are logging the URL so we have access to it for troubleshooting
@@ -88,17 +135,17 @@
                     "</td><td>" + tableData[i].price +
                     "</td><td>" + tableData[i].units +
                     "</td><td>" + tableData[i].total_cost +
-                    "</td><td>" + 
-                    "</td><td>" + 
+                    "</td><td>" +
+                    "</td><td>" +
                     "</td><td>" + "</td></tr>"
                 );
             }
         });
-    }
+}
 
-    $("#select-coin").on("change", function() {
-        runTableQuery($(this).val());
-    });
-
+$("#select-coin").on("change", function() {
+    runTableQuery($(this).val());
+});
 </script>
+
 </html>
