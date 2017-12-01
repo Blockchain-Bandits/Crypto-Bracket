@@ -117,188 +117,151 @@
           </ul>
         </div>
       </div>
-      <section class="charts">
-        <div class="container-fluid">
-          <header> 
-            <h1 class="h3">Charts</h1>
-          </header>
-          <div class="row">
-            <div class="col-lg-6">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
-                  <h2 class="h5 display">Basic Table</h2>
+
+
+
+
+
+      <section class="transactions">
+       
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="select-form" class="form-inline my-2 my-lg-0">
+                    <select id="select-coin" class="form-control">
+                        <option selected>Select Coin</option>
+                    </select>
+                    <select id="select-method" class="form-control">
+                        <option selected>Select Method</option>
+                        <option value="fifo">FIFO</option>
+                        <option value="lifo">LIFO</option>
+                        <option value="avg">Average Cost</option>
+                    </select>
+                    <button class="btn" type="submit">Go</button>
+                </form>
+                <!-- Current Tables in Use -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Transactions</h4>
+                    </div>
+                    <div class="panel-body" id="tableSection">
+                        <table class="table">
+                            <thead>
+                                <tr id="table-headers">
+                                    <th>Date</th>
+                                    <th>Cost</th>
+                                    <th>Price</th>
+                                    <th>Units</th>
+                                    <th>Total</th>
+                                    <th>Unit Gain/(Loss)</th>
+                                    <th>Batch Gain/(Loss)</th>
+                                    <th>% Gain/(Loss)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                <div class="card-body">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
             </div>
-            <div class="col-lg-6">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
-                  <h2 class="h5 display">Striped Table</h2>
-                </div>
-                <div class="card-body">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter                            </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
-                  <h2 class="h5 display">Striped table with hover effect</h2>
-                </div>
-                <div class="card-body">
-                  <table class="table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter                            </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <div class="card">
-                <div class="card-header d-flex align-items-center">
-                  <h2 class="h5 display">Compact Table</h2>
-                </div>
-                <div class="card-body">
-                  <table class="table table-striped table-sm">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter      </td>
-                      </tr>
-                      <tr>
-                        <th scope="row">4</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">5</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">6</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter                                                                              </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
+    </div>
+</body>
+<!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
+<script type="text/javascript">
+// In this code, jQuery is used to "download" the data from our server
+// We then dynamically display this content in our table. This is very similar to the group projects you just completed.
+// It's also very similar to the NYT search application. In fact, I copied a ton of code from there.
+
+function runTableQuery(coin) {
+    $("#transactions").empty();
+    // Here we get the location of the root page.
+    // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
+    var currentURL = window.location.origin;
+
+    // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+    $.ajax({ url: currentURL + `/api/transactions/${coin}`, method: "GET" })
+=======
+
+<script type="text/javascript">
+    // Get the location of the root page.
+    var currentURL = window.location.origin;
+
+    $.ajax({ url: currentURL + "/api/transactions", method: "GET" })
+    .done(function(tableData) {
+
+        // Here we then log the data to console, where it will show up as an object.
+        console.log(tableData);
+        console.log("------------------------------------");
+
+        // Loop through and display each of the customers
+        for (var i = 0; i < tableData.length; i++) {
+            $("#select-coin").append("<option value='" + tableData[i].coin + "'>" + tableData[i].coin + "</option>");
+        }
+    });
+
+    function runTableQuery(coin, method) {
+        $("#transactions").empty();
+        
+        // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+        $.ajax({ url: currentURL + `/api/transactions/${coin}/${method}`, method: "GET" })
+>>>>>>> 278084a8bcfc939c1c470b0dd38c001d8420c1de
+        .done(function(tableData) {
+
+            // Here we then log the data to console, where it will show up as an object.
+            console.log(tableData);
+            
+            var length = tableData.length - 1;
+            // Loop through and display each of the customers
+            for (var i = 0; i < length; i++) {
+                var unitDiff = tableData[length].currentPrice - tableData[i].cost;
+                var totalDiff = unitDiff * tableData[i].units;
+                var percent = tableData[i].units < 0 ? "" : ((tableData[i].total_cost + totalDiff) / tableData[i].total_cost) * 100;
+                $("#transactions").append("<tr><td>" + tableData[i].date +
+<<<<<<< HEAD
+                    "</td><td>" + tableData[i].cost +
+                    "</td><td>" + tableData[i].price +
+                    "</td><td>" + tableData[i].units +
+                    "</td><td>" + tableData[i].total_cost +
+                    "</td><td>" +
+                    "</td><td>" +
+                    "</td><td>" + "</td></tr>"
+                );
+            }
+        });
+}
+=======
+                    "</td><td>$" + tableData[i].cost.toFixed(2) +
+                    "</td><td>$" + tableData[i].price.toFixed(2) +
+                    "</td><td>$" + tableData[i].units.toFixed(2) +
+                    "</td><td>$" + tableData[i].total_cost.toFixed(2) +
+                    "</td><td>$" + unitDiff.toFixed(2) +
+                    "</td><td>$" + totalDiff.toFixed(2) +
+                    "</td><td>" + percent.toFixed(2) + "%</td></tr>"
+                );
+            }
+        });
+    }
+
+    $("#select-form").on("submit", function() {
+        event.preventDefault();
+        var coin = $("#select-coin").val();
+        var method = $("#select-method").val();
+        runTableQuery(coin, method);
+    });
+>>>>>>> 278084a8bcfc939c1c470b0dd38c001d8420c1de
+
+$("#select-coin").on("change", function() {
+    runTableQuery($(this).val());
+});
+</script>
+
+
+
+
+
+
+
       </section>
       <footer class="main-footer">
         <div class="container-fluid">
