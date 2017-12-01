@@ -37,11 +37,18 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <select id="select-coin" class="form-control">
-                    <option selected>Select Coin</option>
-                    <option value="BTC">BTC</option>
-                    <option value="ETH">ETH</option>
-                </select>
+                <form id="select-form" class="form-inline my-2 my-lg-0">
+                    <select id="select-coin" class="form-control">
+                        <option selected>Select Coin</option>
+                    </select>
+                    <select id="select-method" class="form-control">
+                        <option selected>Select Method</option>
+                        <option value="fifo">FIFO</option>
+                        <option value="lifo">LIFO</option>
+                        <option value="avg">Average Cost</option>
+                    </select>
+                    <button class="btn" type="submit">Go</button>
+                </form>
                 <!-- Current Tables in Use -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -70,6 +77,7 @@
         </div>
     </div>
 </body>
+<<<<<<< HEAD
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
 <script type="text/javascript">
 // In this code, jQuery is used to "download" the data from our server
@@ -84,20 +92,44 @@ function runTableQuery(coin) {
 
     // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
     $.ajax({ url: currentURL + `/api/transactions/${coin}`, method: "GET" })
-        .done(function(tableData) {
+=======
 
-            // Here we are logging the URL so we have access to it for troubleshooting
-            console.log("------------------------------------");
-            console.log("URL: " + currentURL + "/api/tables");
-            console.log("------------------------------------");
+<script type="text/javascript">
+    // Get the location of the root page.
+    var currentURL = window.location.origin;
+
+    $.ajax({ url: currentURL + "/api/transactions", method: "GET" })
+    .done(function(tableData) {
+
+        // Here we then log the data to console, where it will show up as an object.
+        console.log(tableData);
+        console.log("------------------------------------");
+
+        // Loop through and display each of the customers
+        for (var i = 0; i < tableData.length; i++) {
+            $("#select-coin").append("<option value='" + tableData[i].coin + "'>" + tableData[i].coin + "</option>");
+        }
+    });
+
+    function runTableQuery(coin, method) {
+        $("#transactions").empty();
+        
+        // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
+        $.ajax({ url: currentURL + `/api/transactions/${coin}/${method}`, method: "GET" })
+>>>>>>> 278084a8bcfc939c1c470b0dd38c001d8420c1de
+        .done(function(tableData) {
 
             // Here we then log the data to console, where it will show up as an object.
             console.log(tableData);
-            console.log("------------------------------------");
-
+            
+            var length = tableData.length - 1;
             // Loop through and display each of the customers
-            for (var i = 0; i < tableData.length; i++) {
+            for (var i = 0; i < length; i++) {
+                var unitDiff = tableData[length].currentPrice - tableData[i].cost;
+                var totalDiff = unitDiff * tableData[i].units;
+                var percent = tableData[i].units < 0 ? "" : ((tableData[i].total_cost + totalDiff) / tableData[i].total_cost) * 100;
                 $("#transactions").append("<tr><td>" + tableData[i].date +
+<<<<<<< HEAD
                     "</td><td>" + tableData[i].cost +
                     "</td><td>" + tableData[i].price +
                     "</td><td>" + tableData[i].units +
@@ -109,6 +141,26 @@ function runTableQuery(coin) {
             }
         });
 }
+=======
+                    "</td><td>$" + tableData[i].cost.toFixed(2) +
+                    "</td><td>$" + tableData[i].price.toFixed(2) +
+                    "</td><td>$" + tableData[i].units.toFixed(2) +
+                    "</td><td>$" + tableData[i].total_cost.toFixed(2) +
+                    "</td><td>$" + unitDiff.toFixed(2) +
+                    "</td><td>$" + totalDiff.toFixed(2) +
+                    "</td><td>" + percent.toFixed(2) + "%</td></tr>"
+                );
+            }
+        });
+    }
+
+    $("#select-form").on("submit", function() {
+        event.preventDefault();
+        var coin = $("#select-coin").val();
+        var method = $("#select-method").val();
+        runTableQuery(coin, method);
+    });
+>>>>>>> 278084a8bcfc939c1c470b0dd38c001d8420c1de
 
 $("#select-coin").on("change", function() {
     runTableQuery($(this).val());
