@@ -1,13 +1,15 @@
 $(document).ready(function () {
-    $(document).on('submit', '#login-form', loginReq);
+    $(document).on('submit', '#register-form', newUserReq);
 
-    function loginReq() {
+    function newUserReq() {
         var cred = {
             username: $('#username').val().trim(),
             password: $('#password').val().trim()
         }
 
-        $.get("/api/login", function (data) {
+        $.post("/api/login/new", function (data) {
+            
+        }).done(function() {
 
         });
     }

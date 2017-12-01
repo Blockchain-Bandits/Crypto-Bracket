@@ -1,4 +1,4 @@
-var login = require("../models/login.js");
+// var login = require("../models/login.js");
 
 router.put("/api/login/:username", function(req, res) {
     var condition = "username = " + req.params.username;
