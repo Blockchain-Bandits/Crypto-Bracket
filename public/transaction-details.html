@@ -77,6 +77,7 @@
         </div>
     </div>
 </body>
+<<<<<<< HEAD
 <!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
 <script type="text/javascript">
 // In this code, jQuery is used to "download" the data from our server
@@ -92,6 +93,8 @@ function runTableQuery(coin) {
     // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
     $.ajax({ url: currentURL + `/api/transactions/${coin}`, method: "GET" })
 =======
+=======
+>>>>>>> 663762de1477ee11f327067284119a5921b661c1
 
 <script type="text/javascript">
     // Get the location of the root page.
@@ -115,7 +118,6 @@ function runTableQuery(coin) {
         
         // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
         $.ajax({ url: currentURL + `/api/transactions/${coin}/${method}`, method: "GET" })
->>>>>>> 278084a8bcfc939c1c470b0dd38c001d8420c1de
         .done(function(tableData) {
 
             // Here we then log the data to console, where it will show up as an object.
@@ -128,19 +130,6 @@ function runTableQuery(coin) {
                 var totalDiff = unitDiff * tableData[i].units;
                 var percent = tableData[i].units < 0 ? "" : ((tableData[i].total_cost + totalDiff) / tableData[i].total_cost) * 100;
                 $("#transactions").append("<tr><td>" + tableData[i].date +
-<<<<<<< HEAD
-                    "</td><td>" + tableData[i].cost +
-                    "</td><td>" + tableData[i].price +
-                    "</td><td>" + tableData[i].units +
-                    "</td><td>" + tableData[i].total_cost +
-                    "</td><td>" +
-                    "</td><td>" +
-                    "</td><td>" + "</td></tr>"
-                );
-            }
-        });
-}
-=======
                     "</td><td>$" + tableData[i].cost.toFixed(2) +
                     "</td><td>$" + tableData[i].price.toFixed(2) +
                     "</td><td>$" + tableData[i].units.toFixed(2) +
@@ -159,7 +148,6 @@ function runTableQuery(coin) {
         var method = $("#select-method").val();
         runTableQuery(coin, method);
     });
->>>>>>> 278084a8bcfc939c1c470b0dd38c001d8420c1de
 
 $("#select-coin").on("change", function() {
     runTableQuery($(this).val());
