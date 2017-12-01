@@ -7,6 +7,8 @@ var app = express();
 // Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 8080;
 
+app.use(express.static("public"));
+
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -17,27 +19,15 @@ app.use(bodyParser.json());
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
 
-require("./routes/apiRoutes")(app);
+// require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
+var routes = require("./controllers/transactions_controller.js");
 
+app.use("/", routes);
 // =============================================================================
 // LISTENER
 // The below code effectively "starts" our server
 // =============================================================================
-
-var mysql = require("mysql");
-
-var connection = mysql.createConnection({
-	host: "localhost",
-	port: 3306,
-
-	// Your username
-	user: "root",
-
-	// Your password
-	password: "",
-	database: "masterAuth"
-});
 
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
