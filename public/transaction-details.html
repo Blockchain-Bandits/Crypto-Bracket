@@ -112,19 +112,6 @@
                 var totalDiff = unitDiff * tableData[i].units;
                 var percent = tableData[i].units < 0 ? "" : ((tableData[i].total_cost + totalDiff) / tableData[i].total_cost) * 100;
                 $("#transactions").append("<tr><td>" + tableData[i].date +
-<<<<<<< HEAD
-                    "</td><td>" + tableData[i].cost +
-                    "</td><td>" + tableData[i].price +
-                    "</td><td>" + tableData[i].units +
-                    "</td><td>" + tableData[i].total_cost +
-                    "</td><td>" +
-                    "</td><td>" +
-                    "</td><td>" + "</td></tr>"
-                );
-            }
-        });
-}
-=======
                     "</td><td>$" + tableData[i].cost.toFixed(2) +
                     "</td><td>$" + tableData[i].price.toFixed(2) +
                     "</td><td>$" + tableData[i].units.toFixed(2) +
@@ -143,7 +130,6 @@
         var method = $("#select-method").val();
         runTableQuery(coin, method);
     });
->>>>>>> 278084a8bcfc939c1c470b0dd38c001d8420c1de
 
 $("#select-coin").on("change", function() {
     runTableQuery($(this).val());
