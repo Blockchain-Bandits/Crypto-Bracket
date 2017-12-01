@@ -77,22 +77,6 @@
         </div>
     </div>
 </body>
-<<<<<<< HEAD
-<!-- BELOW CODE IS CRITICAL. IT HANDLES HOW FORM DATA IS LOADED FROM OUR SERVER -->
-<script type="text/javascript">
-// In this code, jQuery is used to "download" the data from our server
-// We then dynamically display this content in our table. This is very similar to the group projects you just completed.
-// It's also very similar to the NYT search application. In fact, I copied a ton of code from there.
-
-function runTableQuery(coin) {
-    $("#transactions").empty();
-    // Here we get the location of the root page.
-    // We use this instead of explicitly saying the URL is localhost:3001 because the url will change when we deploy.
-    var currentURL = window.location.origin;
-
-    // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-    $.ajax({ url: currentURL + `/api/transactions/${coin}`, method: "GET" })
-=======
 
 <script type="text/javascript">
     // Get the location of the root page.
@@ -116,7 +100,6 @@ function runTableQuery(coin) {
         
         // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
         $.ajax({ url: currentURL + `/api/transactions/${coin}/${method}`, method: "GET" })
->>>>>>> 278084a8bcfc939c1c470b0dd38c001d8420c1de
         .done(function(tableData) {
 
             // Here we then log the data to console, where it will show up as an object.
