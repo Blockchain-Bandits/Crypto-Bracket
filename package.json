@@ -22,6 +22,7 @@
     "moment": "^2.19.2",
     "mysql": "^2.15.0",
     "node-bittrex-api": "^0.7.8",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "plottable": "^3.7.0"
   }
 }
