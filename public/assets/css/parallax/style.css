@@ -30,7 +30,7 @@ html, body {
   background-image: url("../../../assets/img/bitcoin-pic-1.jpg");
 }
 .container section:nth-child(2) .image {
-  background-image: url(https://images.unsplash.com/photo-1462819067004-905a72ea3996?iq=100&fm=jpg&w=1000);
+  background-image: url(../../../assets/img/harold.jpg);
 }
 .container section:nth-child(3) .image {
   background-image: url(https://images.unsplash.com/photo-1461770354136-8f58567b617a?iq=100&fm=jpg&w=1000);
