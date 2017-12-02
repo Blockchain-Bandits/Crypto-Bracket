@@ -13,6 +13,10 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Sets up the Passport app for user authentication
+// app.use(passport.initialize());
+// app.use(passport.session());
+
 // ================================================================================
 // ROUTER
 // The below points our server to a series of "route" files.
