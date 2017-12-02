@@ -15,27 +15,29 @@ bittrex.getticker( { market : 'USDT-BTC' }, function( data, err ) {
 router.get("/api/transactions/:coin/:method", function(req, res) {
     var coin = req.params.coin;
     var coinPrice;
-    bittrex.getticker( { market : `BTC-${coin}` }, function( data, err ) {
-        coinPrice = data.result.Last * price;
-
-        if (req.params.method === 'fifo') {
-            transactions.selectAllFIFO(user, coin, function(data) {
-                data.push({currentPrice: coinPrice});
-                res.json(data);
-            });
-        } else if (req.params.method === 'lifo') {
-            transactions.selectAllLIFO(user, coin, function(data) {
-                data.push({currentPrice: coinPrice});
-                res.json(data);
-            });
-        } else if (req.params.method === 'avg') {
-            transactions.selectAllAvg(user, coin, function(data) {
-                data.push({currentPrice: coinPrice});
-                res.json(data);
-            });
-        }
-    });
-    
+    if (coin === 'BTC') {
+        coinPrice = price;
+    } else {
+        bittrex.getticker( { market : `BTC-${coin}` }, function( data, err ) {
+            coinPrice = data.result.Last * price;
+        });
+    }
+    if (req.params.method === 'fifo') {
+        transactions.selectAllFIFO(user, coin, function(data) {
+            data.push({currentPrice: coinPrice});
+            res.json(data);
+        });
+    } else if (req.params.method === 'lifo') {
+        transactions.selectAllLIFO(user, coin, function(data) {
+            data.push({currentPrice: coinPrice});
+            res.json(data);
+        });
+    } else if (req.params.method === 'avg') {
+        transactions.selectAllAvg(user, coin, function(data) {
+            data.push({currentPrice: coinPrice});
+            res.json(data);
+        });
+    }
 });
 router.get("/api/transactions", function(req, res) {
     transactions.getCoins(function(data) {
