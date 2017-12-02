@@ -23,10 +23,11 @@ html, body {
   text-align: center;
   position: relative;
   overflow: hidden;
-  background-color: #000;
+  background-color:;
+
 }
 .container section:nth-child(1) .image {
-  background-image: url(https://images.unsplash.com/photo-1463412855783-af97e375664b?iq=100&fm=jpg&w=1000);
+  background-image: url("../../../assets/img/bitcoin-pic-1.jpg");
 }
 .container section:nth-child(2) .image {
   background-image: url(https://images.unsplash.com/photo-1462819067004-905a72ea3996?iq=100&fm=jpg&w=1000);
@@ -50,7 +51,7 @@ html, body {
   height: 100%;
   position: absolute;
   z-index: 500;
-  opacity: 0.4;
+  opacity: 0.6;
 }
 .container section .stuff {
   display: flex;
@@ -62,7 +63,7 @@ html, body {
   justify-content: center;
   text-align: center;
   z-index: 1000;
-  color: #e67e22;
+  color: #2b90d9;
   margin: 0 auto;
   font-size: 26px;
   position: relative;
