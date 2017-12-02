@@ -36,12 +36,12 @@ bittrex.getorderhistory({}, function( data, err ) {
         var transactionData = {
             heldCoin: sell,
             targetCoin: buy,
-            targetCoinPrice: price,
+            BTCPrice: price,
             rate: transaction.PricePerUnit,
             units: transaction.Quantity
         }
         console.log(transactionData);
-        //createTrade(transactionData.heldCoin, transactionData.targetCoin, transactionData.targetCoinPrice, transactionData.date, transactionData.rate, transactionData.units);
+        //createTrade(transactionData.heldCoin, transactionData.targetCoin, transactionData.BTCPrice, transactionData.date, transactionData.rate, transactionData.units);
     });
 });
 
@@ -378,17 +378,22 @@ function createSaleLIFO(coin, cost, date, price, units) {
     // connection.end();
 }
 
-function createTrade(heldCoin, targetCoin, targetCoinPrice, date, rate, units) {
+function createTrade(heldCoin, targetCoin, BTCPrice, date, rate, units) {
     console.log("Inserting a new purchase...\n");
-    var price = targetCoinPrice * rate;
+    var price;
+    if (targetCoin === "BTC") {
+        price = BTCPrice;
+    } else {
+        price = BTCPrice * rate;
+    }
     var receiveUnits = units * rate;
     var totalCost = price * receiveUnits;
     var objColVals = {
         user_id: user,
         coin: targetCoin,
-        cost: targetCoinPrice,
+        cost: price,
         date: date,
-        price: targetCoinPrice,
+        price: price,
         units: receiveUnits,
         total_cost: totalCost,
     };
