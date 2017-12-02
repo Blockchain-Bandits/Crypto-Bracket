@@ -26,6 +26,8 @@
     <link rel="stylesheet" href="assets/css/custom.css">
     <!-- Favicon-->
     <link rel="shortcut icon" href="assets/img/favicon.ico">
+    <!-- Plottable CSS-->
+    <link rel="stylesheet" href="../node_modules/plottable/plottable.css" charset="utf-8">
     <!-- Tweaks for older IEs-->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -205,6 +207,16 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-12">
+                        <div class="card plottable-example">
+                            <div class="card-header d-flex align-items-center">
+                                <h2 class="h5 display">Finance Example</h2>
+                            </div>
+                            <div class="card-body">
+                                <id id="financeChartExample"></id>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -235,6 +247,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="assets/js/charts-custom.js"></script>
     <script src="assets/js/front.js"></script>
+    <script src="../node_modules/d3/build/d3.js"></script>
+    <script src="../node_modules/plottable/plottable.js"></script>
+    <script src="assets/js/plottable-charts.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
     <!---->
     <script>
