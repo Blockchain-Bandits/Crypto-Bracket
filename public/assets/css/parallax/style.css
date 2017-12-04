@@ -13,10 +13,10 @@ html, body {
   height: 100%;
   justify-content: space-around;
   position: relative;
-  width: 100%;
+  width: 200%;
 }
 .container section {
-  width: 100%;
+  width: 200%;
   height: 100vh;
   flex: 1;
   display: flex;
@@ -30,7 +30,7 @@ html, body {
   background-image: url("../../../assets/img/bitcoin-pic-1.jpg");
 }
 .container section:nth-child(2) .image {
-  background-image: url(../../../assets/img/harold.jpg);
+  background-image: url(../../../assets/img/mountain-bg.jpg);
 }
 .container section:nth-child(3) .image {
   background-image: url(https://images.unsplash.com/photo-1461770354136-8f58567b617a?iq=100&fm=jpg&w=1000);
@@ -63,7 +63,7 @@ html, body {
   justify-content: center;
   text-align: center;
   z-index: 1000;
-  color: #2b90d9;
+  color: #000;
   margin: 0 auto;
   font-size: 26px;
   position: relative;
