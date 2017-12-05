@@ -1,51 +1,124 @@
-var bittrex = require('node-bittrex-api');
+// var bittrex = require('node-bittrex-api');
 var moment = require('moment');
-var connection = require("./config/connection.js");
+var csv = require('fast-csv');
+var fs = require('fs');
+var connection = require("../config/connection.js");
 var transactions = require("../models/transactions.js");
-var apiKey = 'e44801d861364fd987f1b980b65c199f';
-var apiSecret = '055d6e9715fd463aa4f3c12aff6daabd';
+// var apiKey = 'e44801d861364fd987f1b980b65c199f';
+// var apiSecret = '055d6e9715fd463aa4f3c12aff6daabd';
+// var mysql = require("mysql");
+
+// var connection = mysql.createConnection({
+//   host: "localhost",
+//   user: "root",
+//   password: "",
+//   database: "project_two"
+// });
+
+// connection.connect(function(err) {
+//   if (err) {
+//     console.error("error connecting: " + err.stack);
+//     return;
+//   }
+//   console.log("connected as id " + connection.threadId);
+// });
+
 var user = 1;
 
-bittrex.options({
-  'apikey' : apiKey,
-  'apisecret' : apiSecret
-});
+var stream = fs.createReadStream("../public/assets/fullOrders.csv");
 
-// var price;
-// bittrex.getticker( { market : 'USDT-BTC' }, function( data, err ) {
-//     price = data.result.Last;
-// });
-bittrex.getorderhistory({}, function( data, err ) {
-    if (err) throw err;
-    
-    data.result.forEach(function(transaction) {
-        var buy;
-        var sell;
-        var price;
-        var date = moment(transaction.Closed).format("MMM DD, YYYY");
-        transactions.getPrice(date, function(result) {
-            price = result[0].price;
-        });
-        var exchange = transaction.Exchange.split("-");
-        if (transaction.OrderType === 'LIMIT_BUY') {
-            buy = exchange[1];
-            sell = exchange[0];
-        } else if (transaction.OrderType === 'LIMIT_SELL') {
-            buy = exchange[0];
-            sell = exchange[1];
-        }
-        var transactionData = {
+var allPromises = [];
+
+stream.pipe(csv.parse({ headers: true })).transform(row => {
+    var buy;
+    var sell;
+    var date = moment(row['Closed']).format("MMM DD, YYYY");
+    // var BTCPrice = new Promise((resolve, reject) => {
+    //     transactions.getPrice(date, function(result) {
+    //         var price = result[0].price;
+    //         resolve(price);
+    //     });
+    // });
+    var exchange = row['Exchange'].split("-");
+    if (row["Type"] === 'LIMIT_BUY') {
+        buy = exchange[1];
+        sell = exchange[0];
+    } else if (row["Type"] === 'LIMIT_SELL') {
+        buy = exchange[0];
+        sell = exchange[1];
+    }
+    // BTCPrice.then(function(price) {
+        return {
             heldCoin: sell,
             targetCoin: buy,
-            BTCPrice: price,
             date: date,
-            rate: transaction.PricePerUnit,
-            units: transaction.Quantity
-        }
-        console.log(transactionData);
-        //createTrade(transactionData.heldCoin, transactionData.targetCoin, transactionData.BTCPrice, transactionData.date, transactionData.rate, transactionData.units);
-    });
+            // price: price,
+            rate: row['Limit'],
+            units: row['Quantity']
+        };
+    // })
+    
+})
+.on('data', function(data) {
+    console.log(data);
+    // testEntry(data.heldCoin, data.targetCoin, data.price, data.date, data.rate, data.units);
+    // var data;
+    // while (null !== (data = stream.read())) {
+    // allPromises.push(new Promise((resolve, reject) => {
+        var BTCPrice = new Promise((resolve, reject) => {
+            transactions.getPrice(data.date, function(res) {
+                var price = res[0].price;
+                resolve(price);
+            });
+            // var price;
+            // connection.query(
+            //     "SELECT price FROM btc_price WHERE ?", 
+            //     {
+            //         date: data.date
+            //     },
+            //     function(err, res) {
+            //         if(res[0].price) {
+            //             price = res[0].price;
+            //         } else {
+            //             price = 0;
+            //         }
+            //         resolve(price);                
+            //     }
+            // );
+        });
+        BTCPrice.then(function(price) {
+            testEntry(data.heldCoin, data.targetCoin, price, data.date, data.rate, data.units);
+        });
+    // }));
+})
+.on('end', () => {
+    console.log("Import Complete");    
+    // Promise.all(allPromises).then(() => {
+    //     console.log(`---------- Imported ${allPromises.length} transactions ----------`);
+    //     process.exit();
+    // }).catch((err) => {
+    //     throw err;
+    // });
 });
+
+function testEntry(heldCoin, targetCoin, price, date, rate, units) {
+    console.log("Inserting a new buy...\n");
+    connection.query(
+        "INSERT INTO transactionsAvg SET ?",
+        {
+            user_id: user,
+            coin: targetCoin,
+            cost: price * rate,
+            date: date,
+            price: rate,
+            units: units,
+            total_cost: price * rate * units,
+        },
+        function(err, res) {
+            if (err) throw err;
+        }
+    );
+}
 
 function createBuy(coin, cost, date, units) {
     console.log("Inserting a new purchase...\n");
