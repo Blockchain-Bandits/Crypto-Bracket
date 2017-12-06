@@ -1,38 +1,77 @@
-var express = require("express");
-var bodyParser = require("body-parser");
+// Dependencies
+// ============
+var express        = require('express');
+var path           = require('path');
+var logger         = require('morgan');
+var cookieParser   = require('cookie-parser'); // for working with cookies
+var bodyParser     = require('body-parser');
+var session        = require('express-session'); 
+var methodOverride = require('method-override'); // for deletes in express
+var passport 			 = require("./config/passport");
+var config				 = require("./config/extra-config");
+// Express settings
+// ================
 
-var app = express();
-
-
-// Sets an initial port. We"ll use this later in our listener
 var PORT = process.env.PORT || 8080;
+// instantiate our app
+var app            = express();
 
-app.use(express.static("public"));
+// override POST to have DELETE and PUT
+app.use(methodOverride('_method'));
 
-// Sets up the Express app to handle data parsing
-app.use(bodyParser.urlencoded({ extended: false }));
+//allow sessions
+// app.use(session({ secret: 'booty Mctootie', cookie: { maxAge: 60000 }}));
+// app.use(cookieParser());
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+
+//set up handlebars
+var exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
+
+var isAuth 				 = require("./config/middleware/isAuthenticated");
+var authCheck 		 = require('./config/middleware/attachAuthenticationStatus');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Sets up the Passport app for user authentication
-// app.use(passport.initialize());
-// app.use(passport.session());
+app.use(session({ secret: config.sessionKey, resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(authCheck);
 
-// ================================================================================
-// ROUTER
-// The below points our server to a series of "route" files.
-// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
-// ================================================================================
 
-// require("./routes/apiRoutes")(app);
-require("./routes/htmlRoutes")(app);
-var routes = require("./controllers/transactions_controller.js");
+require('./routes')(app);
 
-app.use("/", routes);
-// =============================================================================
-// LISTENER
-// The below code effectively "starts" our server
-// =============================================================================
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
 
+// error handler
+// no stacktraces leaked to user unless in development environment
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: (app.get('env') === 'development') ? err : {}
+  })
+});
+
+
+// our module get's exported as app.
+module.exports = app;
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
 });

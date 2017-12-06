@@ -42,15 +42,15 @@
           <div class="form-inner">
             <div class="logo text-uppercase"><span>Blockchain</span><strong class="text-primary"> Bandits</strong></div>
             <p>Please sign in.</p>
-            <form id="login-form" method="post">
+            <form id="login-form" class="login" method="post">
               <div class="form-group">
                 <label for="login-username" class="label-custom">User Name</label>
-                <input id="login-username" type="text" name="loginUsername" required="">
+                <input id="username-input" type="text" name="loginUsername" required="">
               </div>
               <div class="form-group">
                 <label for="login-password" class="label-custom">Password</label>
-                <input id="login-password" type="password" name="loginPassword" required="">
-              </div><a id="login" href="index.html" class="btn btn-primary">Login</a>
+                <input id="password-input" type="password" name="loginPassword" required="">
+              </div><button id="login" type="submit" class="btn btn-primary">Login</button>
               <!-- This should be submit button but I replaced it with <a> for demo purposes-->
             </form><a href="#" class="forgot-pass">Forgot Password?</a><small>Do not have an account? </small><a href="register.html" class="signup">Signup</a>
           </div>
@@ -69,6 +69,7 @@
     <script src="assets/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
     <script src="assets/vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="assets/js/login.js"></script>
     <script src="assets/js/front.js"></script>
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
     <!---->
