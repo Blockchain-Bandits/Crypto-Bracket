@@ -1445,6 +1445,7 @@ section.forms .input-group-btn .dropdown-menu a {
   background: #f5f5f5;
   min-height: auto;
   padding-bottom: 0;
+  z-index: -1;
 }
 
 .login-page .form-outer,
@@ -1454,6 +1455,8 @@ section.forms .input-group-btn .dropdown-menu a {
   margin: 0 auto;
   padding: 20px 0;
   position: relative;
+  top:20px;
+  left: 400px;
 }
 
 .login-page .copyrights,
