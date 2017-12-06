@@ -45,3 +45,7 @@ h1 {
     position: absolute;
     left: 600px;
 }
+
+#financeChartExample {
+    height: 300px;
+}
