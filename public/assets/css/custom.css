@@ -14,3 +14,16 @@
 	border-width: 10px;
 
 }
+
+#alignRight {
+  	align-items: flex-end;
+}
+
+#btnLogout {
+    position: absolute;
+    left: 600px;
+}
+
+#financeChartExample {
+    height: 300px;
+    }

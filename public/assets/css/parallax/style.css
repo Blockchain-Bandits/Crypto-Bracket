@@ -13,10 +13,10 @@ html, body {
   height: 100%;
   justify-content: space-around;
   position: relative;
-  width: 200%;
+  width: 100%;
 }
 .container section {
-  width: 200%;
+  width: 150%;
   height: 100vh;
   flex: 1;
   display: flex;
