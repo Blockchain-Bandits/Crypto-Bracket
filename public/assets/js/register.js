@@ -1,12 +1,9 @@
 $(document).ready(function() {
     // Getting references to our form and input
     var signUpButton = $(".signup");
-    var usernameInput = $("input#username-input");
-    var emailInput = $("input#email-input");
-    var passwordInput = $("input#password-input");
-  
-    var repeatPasswordInput = $("input#repeat-password-input");
-    var repeatEmailInput = $("input#repeat-email-input");
+    var usernameInput = $("input#register-username");
+    var emailInput = $("input#register-email");
+    var passwordInput = $("input#register-password");
   
     // Username "on-the-fly" validation
     usernameInput.bind('input propertychange', function() {
@@ -43,20 +40,7 @@ $(document).ready(function() {
       }
     });
   
-    // Check "on-the-fly" if repeated email matches email
-    repeatEmailInput.bind('input propertychange', function() {
-      if (emailInput.val().trim() !== repeatEmailInput.val().trim()) {
-        $("#email-repeat-form").removeClass("has-success");
-  
-        $("#email-repeat-form").addClass("has-error");
-        $("#email-repeat-feedback").text("Emails Don't Match");
-      } else {
-        $("#email-repeat-form").removeClass("has-error");
-  
-        $("#email-repeat-form").addClass("has-success");
-        $("#email-repeat-feedback").text("Emails Match!");    
-      }
-    });
+    
     var passwordRegEx = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/;
     passwordInput.bind('input propertychange', function() {
       if (!passwordRegEx.test($(this).val())) {
@@ -72,19 +56,6 @@ $(document).ready(function() {
       }
     });
   
-    repeatPasswordInput.bind('input propertychange', function() {
-      if (passwordInput.val().trim() !== repeatPasswordInput.val().trim()) {
-        $("#repeat-password-form").removeClass("has-success");
-  
-        $("#repeat-password-form").addClass("has-error");
-        $("#repeat-password-feedback").text("Passwords Don't Match");
-      } else {
-        $("#repeat-password-form").removeClass("has-error");
-  
-        $("#repeat-password-form").addClass("has-success");
-        $("#repeat-password-feedback").text("Passwords Match!");    
-      }
-    });
   
     // Check if emails match each other
     signUpButton.on("click", function(event) {
@@ -105,8 +76,6 @@ $(document).ready(function() {
       emailInput.val("");
       passwordInput.val("");
       usernameInput.val("");
-      repeatPasswordInput.val("");
-      repeatEmailInput.val("");
     });
   
     // Does a post to the signup route. If succesful, we are redirected to the members page

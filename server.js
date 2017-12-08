@@ -1,5 +1,6 @@
 // Dependencies
 // ============
+var flash 				 = require('connect-flash');
 var express        = require('express');
 var path           = require('path');
 var logger         = require('morgan');
@@ -26,19 +27,13 @@ app.use(methodOverride('_method'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
-//set up handlebars
-var exphbs = require('express-handlebars');
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
-}));
-app.set('view engine', 'handlebars');
-
 var isAuth 				 = require("./config/middleware/isAuthenticated");
 var authCheck 		 = require('./config/middleware/attachAuthenticationStatus');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+app.use(flash());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
