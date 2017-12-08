@@ -12,7 +12,7 @@ module.exports = function(app) {
   });
 
   // If no matching route is found default to
-  app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, ""));
+  app.get("/coins", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/coin-details.html"));
   });
 };
