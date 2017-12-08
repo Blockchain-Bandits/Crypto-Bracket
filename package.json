@@ -27,6 +27,6 @@
     "node-bittrex-api": "^0.7.8",
     "path": "^0.12.7",
     "plottable": "^3.7.0",
-    "sequelize": "^4.26.0"
+    "sequelize": "^4.27.0"
   }
 }

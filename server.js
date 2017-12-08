@@ -21,7 +21,7 @@ app.use(bodyParser.json());
 
 require("./routes/htmlRoutes")(app);
 require("./controllers/ccxt")(app);
-var routes = require("./controllers/transactions_controller.js");
+var routes = require("./controllers/transactions-controller.js");
 
 app.use("/", routes);
 // =============================================================================
