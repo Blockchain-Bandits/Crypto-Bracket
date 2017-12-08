@@ -63,7 +63,7 @@ router.get("/api/transactions", function(req, res) {
             user_id: user
         },
         attributes: ["coin"],
-        group: coin
+        group: "coin"
     }).then(function(data) {
         res.json(data);
     });

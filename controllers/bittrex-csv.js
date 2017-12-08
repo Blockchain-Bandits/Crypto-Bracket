@@ -38,6 +38,10 @@ stream.pipe(csv.parse({ headers: true })).transform(row => {
     console.log(data);
 
     // allPromises.push(new Promise((resolve, reject) => {
+        var units = data.units;
+        if (data.targetCoin === 'BTC') {
+            units = units * data.rate;
+        }
         var BTCPrice = new Promise((resolve, reject) => {
 
             btcPrice.findOne({
@@ -62,8 +66,8 @@ stream.pipe(csv.parse({ headers: true })).transform(row => {
                 date: data.date,
                 price: coinPrice,
                 rate: data.rate,
-                units: data.units,
-                total_cost: coinPrice * data.units,
+                units: units,
+                total_cost: coinPrice * units,
             };
             var sellData = {
                 user_id: user,
@@ -71,7 +75,7 @@ stream.pipe(csv.parse({ headers: true })).transform(row => {
                 date: data.date,
                 price: coinPrice,
                 rate: data.rate,
-                units: data.units,
+                units: units,
             };
             createBuy(buyData);
             createSale(sellData);
