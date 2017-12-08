@@ -1,5 +1,9 @@
-// Get the location of the root page.
-var currentURL = window.location.origin;
+$(document).ready(function() {
+    var currentURL = window.location.origin;
+    var getCoin = window.location.href.split("=");
+    var coin = getCoin[1];
+    
+    runTableQuery(coin, 'avg');
 
     $.ajax({ url: currentURL + "/api/transactions", method: "GET" })
     .done(function(tableData) {
@@ -12,6 +16,7 @@ var currentURL = window.location.origin;
         for (var i = 0; i < tableData.length; i++) {
             $("#select-coin").append("<option value='" + tableData[i].coin + "'>" + tableData[i].coin + "</option>");
         }
+        $("#select-coin").val(coin);
     });
 
     function runTableQuery(coin, method) {
@@ -53,3 +58,4 @@ var currentURL = window.location.origin;
         var method = $("#select-method").val();
         runTableQuery(coin, method);
     });
+});
