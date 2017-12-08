@@ -2430,11 +2430,11 @@ mark,
 }
 
 .text-primary {
-  color: #2b90d9 !important;
+  color: #044b39 !important;
 }
 
 a.text-primary:focus, a.text-primary:hover {
-  color: #2074b1 !important;
+  color: #044b39 !important;
 }
 
 /*
