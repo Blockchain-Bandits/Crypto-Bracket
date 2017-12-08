@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Blockchain-Bandits/Crypto-Bracket#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "ccxt": "^1.10.317",
     "express": "^4.16.2",
     "fast-csv": "^2.4.1",
     "moment": "^2.19.2",
@@ -26,6 +27,6 @@
     "node-bittrex-api": "^0.7.8",
     "path": "^0.12.7",
     "plottable": "^3.7.0",
-    "sequelize": "^4.26.0"
+    "sequelize": "^4.27.0"
   }
 }
