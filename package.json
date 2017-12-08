@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Blockchain-Bandits/Crypto-Bracket#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "ccxt": "^1.10.317",
     "express": "^4.16.2",
     "moment": "^2.19.2",
     "mysql": "^2.15.0",
