@@ -3,7 +3,7 @@ var bittrex = require('node-bittrex-api');
 
 var router = express.Router();
 
-var transactions = require("../models/transactions.js");
+var transactions = require("../models/transactions-orm.js");
 
 var user = 1;
 

@@ -19,9 +19,8 @@ app.use(bodyParser.json());
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
 
-// require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
-var routes = require("./controllers/transactions_controller.js");
+var routes = require("./controllers/transactions-controller.js");
 
 app.use("/", routes);
 // =============================================================================
