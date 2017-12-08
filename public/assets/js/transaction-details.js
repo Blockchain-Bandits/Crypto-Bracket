@@ -27,19 +27,21 @@ var currentURL = window.location.origin;
             var length = tableData.length - 1;
             // Loop through and display each of the customers
             for (var i = 0; i < length; i++) {
+                var date = moment(tableData[i].date).format("MM/DD/YY");
                 var price = tableData[i].units < 0 ? tableData[i].price : tableData[length].currentPrice;
                 var unitDiff = price - tableData[i].cost;
                 var totalDiff = unitDiff * tableData[i].units;
-                var percent = tableData[i].units < 0 ? "" : (totalDiff / tableData[i].total_cost) * 100;
-                $("#transactions").append("<tr><td>" + tableData[i].date +
+                var percent = tableData[i].units < 0 ? "" : ((totalDiff / tableData[i].total_cost) * 100) + "%" ;
+                $("#transactions").append(
+                    "<tr><td>" + date +
                     "</td><td>$" + tableData[i].cost +
-                    "</td><td>$" + price.toFixed(2) +
+                    "</td><td>$" + price +
                     "</td><td>$" + tableData[i].rate +
-                    "</td><td>$" + tableData[i].units +
+                    "</td><td>" + tableData[i].units +
                     "</td><td>$" + tableData[i].total_cost +
                     "</td><td>$" + unitDiff.toFixed(2) +
                     "</td><td>$" + totalDiff.toFixed(2) +
-                    "</td><td>" + percent.toFixed(2) + "%</td></tr>"
+                    "</td><td>" + percent + "</td></tr>"
                 );
             }
         });

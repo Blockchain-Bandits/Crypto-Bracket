@@ -29,7 +29,8 @@ router.get("/api/transactions/:coin/:method", function(req, res) {
                 where: {
                     user_id: user,
                     coin: coin
-                }
+                },
+                order: ["date"]
             }).then(function(data) {
                 data.push({currentPrice: coinPrice});
                 res.json(data);
@@ -39,7 +40,8 @@ router.get("/api/transactions/:coin/:method", function(req, res) {
                 where: {
                     user_id: user,
                     coin: coin
-                }
+                },
+                order: ["date"]
             }).then(function(data) {
                 data.push({currentPrice: coinPrice});
                 res.json(data);
@@ -49,7 +51,8 @@ router.get("/api/transactions/:coin/:method", function(req, res) {
                 where: {
                     user_id: user,
                     coin: coin
-                }
+                },
+                order: ["date"]
             }).then(function(data) {
                 data.push({currentPrice: coinPrice});
                 res.json(data);

@@ -16,7 +16,7 @@ var stream = fs.createReadStream("../public/assets/fullOrders.csv");
 stream.pipe(csv.parse({ headers: true })).transform(row => {
     var buy;
     var sell;
-    var date = moment(row['Closed']).format("MMM DD, YYYY");
+    var date = moment(row['Closed']);
     var exchange = row['Exchange'].split("-");
     if (row["Type"] === 'LIMIT_BUY') {
         buy = exchange[1];
@@ -39,20 +39,20 @@ stream.pipe(csv.parse({ headers: true })).transform(row => {
 
     // allPromises.push(new Promise((resolve, reject) => {
         var units = data.units;
-        if (data.targetCoin === 'BTC') {
+        if (data.targetCoin === 'BTC' || data.heldCoin === 'BTC') {
             units = units * data.rate;
         }
         var BTCPrice = new Promise((resolve, reject) => {
 
             btcPrice.findOne({
                 where: {
-                    date: data.date
+                    date: moment(data.date).format("MMM DD, YYYY")
                 },
                 attributes: ['price']
             }).then(function(results) {
                 var price = results.dataValues.price;
                 var coinPrice = price * data.rate;
-                if (data.targetCoin === 'BTC') {
+                if (data.targetCoin === 'BTC' || data.heldCoin === 'BTC') {
                     coinPrice = price;
                 }
                 resolve(coinPrice);
@@ -77,6 +77,7 @@ stream.pipe(csv.parse({ headers: true })).transform(row => {
                 rate: data.rate,
                 units: units,
             };
+            console.log(buyData);
             createBuy(buyData);
             createSale(sellData);
         });
@@ -153,12 +154,13 @@ function calculateAvg(data) {
         }
     }).then(function(res) {
         for (var i in res) {
-            if (moment(res[i].date) < data.date) {
-                totalCost += res[i].total_cost;
-                totalUnits += res[i].units;
+            if (moment(res[i].date).isBefore(data.date)) {
+                totalCost += parseFloat(res[i].total_cost);
+                totalUnits += parseFloat(res[i].units);
             }
         }
         var cost = (res.length < 1 || totalUnits === 0) ? data.price : totalCost / totalUnits;
+        console.log(cost);
         var sellData = {
             user_id: user,
             coin: data.coin,
@@ -181,7 +183,8 @@ function calculateFIFO(data) {
         where: {
             user_id: user,
             coin: data.coin
-        }
+        },
+        order: ["date"]
     }).then(function(res) {
         var totalCost = 0;
         var totalUnits = 0;
@@ -189,14 +192,14 @@ function calculateFIFO(data) {
         var saleUnits = 0;
         var unitCount = 0;
         for (var i = 0; i < res.length; i++) {
-            if (moment(res[i].date) < data.date) {
+            if (moment(res[i].date).isBefore(data.date)) {
                 if (res[i].units < 0) {
                     saleUnits += res[i].units;
                 }
             }
         }
         for (var i = 0; i < res.length; i++) {
-            if (moment(res[i].date) < data.date) {
+            if (moment(res[i].date).isBefore(data.date)) {
                 if (remainingUnits > 0 && res[i].units > 0) {
                     if (saleUnits < 0) {
                         if (res[i].units <= saleUnits) {
@@ -238,7 +241,8 @@ function calculateLIFO(data) {
         where: {
             user_id: user,
             coin: data.coin
-        }
+        },
+        order: ["date"]
     }).then(function(res) {
         var totalCost = 0;
         var totalUnits = 0;
@@ -248,23 +252,25 @@ function calculateLIFO(data) {
         var saleUnits = 0;
         var unitCount = 0;
         for (var i = entries; i >= 0; i--) {
-            if (remainingUnits > 0) {
-                if (res[i].units < 0) {
-                    saleUnits += res[i].units;
-                } else if (res[i].units > 0) {
-                    if (saleUnits < 0) {
+            if (moment(res[i].date).isBefore(data.date)) {
+                if (remainingUnits > 0) {
+                    if (res[i].units < 0) {
                         saleUnits += res[i].units;
-                        if (saleUnits > 0) {
-                            unitCount = res[i].units - saleUnits;
-                            totalUnits = unitCount > remainingUnits ? remainingUnits : unitCount;
+                    } else if (res[i].units > 0) {
+                        if (saleUnits < 0) {
+                            saleUnits += res[i].units;
+                            if (saleUnits > 0) {
+                                unitCount = res[i].units - saleUnits;
+                                totalUnits = unitCount > remainingUnits ? remainingUnits : unitCount;
+                                totalCost += (res[i].cost * totalUnits);
+                                remainingUnits -= unitCount;
+                                saleUnits = 0;
+                            }
+                        } else {
+                            totalUnits = res[i].units > remainingUnits ? remainingUnits : res[i].units;
                             totalCost += (res[i].cost * totalUnits);
-                            remainingUnits -= unitCount;
-                            saleUnits = 0;
+                            remainingUnits -= res[i].units;
                         }
-                    } else {
-                        totalUnits = res[i].units > remainingUnits ? remainingUnits : res[i].units;
-                        totalCost += (res[i].cost * totalUnits);
-                        remainingUnits -= res[i].units;
                     }
                 }
             }
