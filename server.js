@@ -13,7 +13,6 @@ var config				 = require("./config/extra-config");
 // Express settings
 // ================
 
-var PORT = process.env.PORT || 8080;
 // instantiate our app
 var app            = express();
 
@@ -26,6 +25,13 @@ app.use(methodOverride('_method'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
+
+//set up handlebars
+var exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
+app.set('view engine', 'handlebars');
 
 var isAuth 				 = require("./config/middleware/isAuthenticated");
 var authCheck 		 = require('./config/middleware/attachAuthenticationStatus');
@@ -62,11 +68,26 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: (app.get('env') === 'development') ? err : {}
   })
-});
+});// This way, we can set certain properties here
+// rather than having them take up space in server.js.
+var debug = require('debug')('express-example');
 
+// we bring in the models we exported with index.js
+var db = require("./models");
+
+// we set the port of the app
+app.set('port', process.env.PORT || 8080);
+
+
+// we sync the models with our db 
+// (thus creating the apropos tables)
+db.sequelize.sync().then(function () {
+	// set our app to listen to the port we set above
+  var server = app.listen(app.get('port'), function() {
+  	// then save a log of the listening to our debugger.
+    debug('Express server listening on port ' + server.address().port);
+  });
+});
 
 // our module get's exported as app.
 module.exports = app;
-app.listen(PORT, function() {
-  console.log("App listening on PORT: " + PORT);
-});
