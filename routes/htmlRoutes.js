@@ -8,7 +8,7 @@ module.exports = function(app) {
   // ---------------------------------------------------------------------------
 
   app.get("/transactions", function(req, res) {
-    res.sendFile(path.join(__dirname, "../public/transactions.html"));
+    res.sendFile(path.join(__dirname, "../public/transaction-details.html"));
   });
 
   // If no matching route is found default to
