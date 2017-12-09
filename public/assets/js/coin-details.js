@@ -1,6 +1,5 @@
-// Get the location of the root page.
-var currentURL = window.location.origin;
-
+$(document).ready(function() {
+    var currentURL = window.location.origin;
 
     $.ajax({ url: currentURL + '/api/coins', method: "GET" })
     .done(function(tableData) {
@@ -19,7 +18,7 @@ var currentURL = window.location.origin;
             var percent = (totalDiff / totalCost) * 100;
             if(totalUnits > 0) {
                 $("#coins").append(
-                    "<tr><td>" + tableData[i].coin +
+                    "<tr class='get-details' id='" + tableData[i].coin + "'><td>" + tableData[i].coin +
                     "</td><td>$" + avgCost.toFixed(2) +
                     "</td><td>$" + price.toFixed(2) +
                     "</td><td>" + totalUnits.toFixed(2) +
@@ -31,3 +30,9 @@ var currentURL = window.location.origin;
             }
         }
     });
+
+    $(document).on("click", ".get-details", function() {
+        var coin = $(this).attr("id");
+        window.location.href = currentURL + `/transactions?coin=${coin}`
+    })
+});
