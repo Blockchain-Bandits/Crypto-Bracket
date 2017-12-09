@@ -15,4 +15,26 @@ module.exports = function(app) {
   app.get("/coins", function(req, res) {
     res.sendFile(path.join(__dirname, "../public/coin-details.html"));
   });
+
+ app.get("/charts", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/charts.html"));
+  });
+
+  app.get("/forms", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/forms.html"));
+  });
+
+ app.get("/home", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+  });
+
+  app.get("/login", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/login.html"));
+  });
+
+ app.get("/register", function(req, res) {
+    res.sendFile(path.join(__dirname, "../public/register.html"));
+  });
+
+
 };
