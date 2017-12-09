@@ -26,6 +26,8 @@
     "express-session": "^1.15.6",
     "jquery": "^3.2.1",
     "method-override": "^2.3.10",
+    "ccxt": "^1.10.317",
+    "fast-csv": "^2.4.1",
     "moment": "^2.19.2",
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
@@ -35,8 +37,6 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "plottable": "^3.7.0",
-    "sequelize": "^3.0.0",
-    "sequelize-cli": "^3.2.0",
-    "sqlite3": "^3.1.13"
+    "sequelize": "^4.27.0"
   }
 }

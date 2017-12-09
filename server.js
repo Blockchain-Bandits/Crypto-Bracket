@@ -50,6 +50,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(authCheck);
 
+require("./routes/htmlRoutes")(app);
+require("./controllers/ccxt")(app);
+var routes = require("./controllers/transactions-controller.js");
 
 require('./routes')(app);
 
