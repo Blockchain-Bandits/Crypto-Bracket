@@ -1,5 +1,9 @@
-// Get the location of the root page.
-var currentURL = window.location.origin;
+$(document).ready(function() {
+    var currentURL = window.location.origin;
+    var getCoin = window.location.href.split("=");
+    var coin = getCoin[1];
+    
+    runTableQuery(coin, 'avg');
 
     $.ajax({ url: currentURL + "/api/transactions", method: "GET" })
     .done(function(tableData) {
@@ -12,6 +16,7 @@ var currentURL = window.location.origin;
         for (var i = 0; i < tableData.length; i++) {
             $("#select-coin").append("<option value='" + tableData[i].coin + "'>" + tableData[i].coin + "</option>");
         }
+        $("#select-coin").val(coin);
     });
 
     function runTableQuery(coin, method) {
@@ -27,17 +32,21 @@ var currentURL = window.location.origin;
             var length = tableData.length - 1;
             // Loop through and display each of the customers
             for (var i = 0; i < length; i++) {
-                var unitDiff = tableData[length].currentPrice - tableData[i].cost;
+                var date = moment(tableData[i].date).format("MM/DD/YY");
+                var price = tableData[i].units < 0 ? tableData[i].price : tableData[length].currentPrice;
+                var unitDiff = price - tableData[i].cost;
                 var totalDiff = unitDiff * tableData[i].units;
-                var percent = tableData[i].units < 0 ? "" : ((tableData[i].total_cost + totalDiff) / tableData[i].total_cost) * 100;
-                $("#transactions").append("<tr><td>" + tableData[i].date +
-                    "</td><td>$" + tableData[i].cost.toFixed(2) +
-                    "</td><td>$" + tableData[i].price.toFixed(2) +
-                    "</td><td>$" + tableData[i].units.toFixed(2) +
-                    "</td><td>$" + tableData[i].total_cost.toFixed(2) +
+                var percent = tableData[i].units < 0 ? "" : ((totalDiff / tableData[i].total_cost) * 100) + "%" ;
+                $("#transactions").append(
+                    "<tr><td>" + date +
+                    "</td><td>$" + tableData[i].cost +
+                    "</td><td>$" + price +
+                    "</td><td>$" + tableData[i].rate +
+                    "</td><td>" + tableData[i].units +
+                    "</td><td>$" + tableData[i].total_cost +
                     "</td><td>$" + unitDiff.toFixed(2) +
                     "</td><td>$" + totalDiff.toFixed(2) +
-                    "</td><td>" + percent.toFixed(2) + "%</td></tr>"
+                    "</td><td>" + percent + "</td></tr>"
                 );
             }
         });
@@ -49,3 +58,4 @@ var currentURL = window.location.origin;
         var method = $("#select-method").val();
         runTableQuery(coin, method);
     });
+});
