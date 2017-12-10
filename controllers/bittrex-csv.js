@@ -45,9 +45,13 @@ module.exports = function(app) {
             // console.log(data);
 
             // allPromises.push(new Promise((resolve, reject) => {
-                var units = data.units;
-                if (data.targetCoin === 'BTC' || data.heldCoin === 'BTC') {
-                    units = units * data.rate;
+                var buyUnits = data.units;
+                var sellUnits = data.units;
+                if (data.targetCoin === 'BTC') {
+                    buyUnits = buyUnits * data.rate;
+                }
+                if (data.heldCoin === 'BTC') {
+                    sellUnits = sellUnits * data.rate;
                 }
                 var BTCPrice = new Promise((resolve, reject) => {
 
@@ -58,31 +62,35 @@ module.exports = function(app) {
                         attributes: ['price']
                     }).then(function(results) {
                         var price = results.dataValues.price;
-                        var coinPrice = price * data.rate;
-                        if (data.targetCoin === 'BTC' || data.heldCoin === 'BTC') {
-                            coinPrice = price;
-                        }
-                        resolve(coinPrice);
+                        resolve(price);
                     });
                 });
-                BTCPrice.then(function(coinPrice) {
+                BTCPrice.then(function(price) {
+                    var buyPrice = price * data.rate;
+                    var sellPrice = price * data.rate;
+                    if (data.targetCoin === 'BTC') {
+                        buyPrice = price;
+                    }
+                    if (data.heldCoin === 'BTC') {
+                        sellPrice = price;
+                    }
                     var buyData = {
                         user_id: user,
                         coin: data.targetCoin,
-                        cost: coinPrice,
+                        cost: buyPrice,
                         date: data.date,
-                        price: coinPrice,
+                        price: buyPrice,
                         rate: data.rate,
-                        units: units,
-                        total_cost: coinPrice * units,
+                        units: buyUnits,
+                        total_cost: buyPrice * buyUnits,
                     };
                     var sellData = {
                         user_id: user,
                         coin: data.heldCoin,
                         date: data.date,
-                        price: coinPrice,
+                        price: sellPrice,
                         rate: data.rate,
-                        units: units,
+                        units: sellUnits,
                     };
                     // console.log(buyData);
                     createBuy(buyData);
