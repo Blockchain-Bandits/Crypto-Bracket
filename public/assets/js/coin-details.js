@@ -34,5 +34,29 @@ $(document).ready(function() {
     $(document).on("click", ".get-details", function() {
         var coin = $(this).attr("id");
         window.location.href = currentURL + `/transactions?coin=${coin}`
-    })
+    });
+
+    $("#upload").on("submit", function(event) {
+        event.preventDefault();
+        var files = document.getElementById("file").files;
+        var file = files[0];
+        var formData = new FormData();
+        formData.append('orders', file);        
+        // $.ajax({ 
+        //     url: currentURL + '/upload',
+        //     method: "POST",
+        //     data: formData
+        // })
+        // .done(function() {
+        //     window.location.href = currentURL + '/coins'
+        // });
+        var xhr = new XMLHttpRequest();     
+        // Create a new XMLHttpRequest
+        xhr.open('POST', '/upload', true);  
+        // File Location, this is where the data will be posted
+        xhr.send(formData);
+        xhr.onload = function () {
+            window.location.href = currentURL + '/coins'
+        }
+    });
 });
