@@ -58,9 +58,13 @@
   }
 }
 
-a.work:hover{
-	
-};
+
+#richard-dollar {
+  position: relative;
+  width:600px;
+  top:300px;
+
+}
 
 
 
