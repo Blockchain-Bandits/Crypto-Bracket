@@ -9,13 +9,13 @@ var mysql = require("mysql");
 const ccxt = require('ccxt');
 var user = 1;
 
-module.exports = function(app) {
-    app.post('/upload', function(req, res) {
-        var file = req.files.orders;
-        console.log(file);
-        file.mv(__dirname + '/uploads/orders.csv', function(err) {
-            if (err) throw err;
-        });
+// module.exports = function(app) {
+//     app.post('/upload', function(req, res) {
+//         var file = req.files.orders;
+//         console.log(file);
+//         file.mv(__dirname + '/uploads/orders.csv', function(err) {
+//             if (err) throw err;
+//         });
         var stream = fs.createReadStream(__dirname + '/uploads/orders.csv');
 
         // var allPromises = [];
@@ -62,15 +62,6 @@ module.exports = function(app) {
                         var price = getExchangeData('ETH/USDT', data.date);
                         resolve(price);
                     }
-                    // btcPrice.findOne({
-                    //     where: {
-                    //         date: moment(data.date).format("MMM DD, YYYY")
-                    //     },
-                    //     attributes: ['price']
-                    // }).then(function(results) {
-                    //     var price = results.dataValues.price;
-                    //     resolve(price);
-                    // });
                 });
                 getPrice.then(function(price) {
                     var buyPrice = price * data.rate;
@@ -99,15 +90,15 @@ module.exports = function(app) {
                         rate: data.rate,
                         units: sellUnits,
                     };
-                    // console.log(buyData);
-                    createBuy(buyData);
-                    createSale(sellData);
+                    console.log(buyData);
+                    // createBuy(buyData);
+                    // createSale(sellData);
                 });
             // }));
         })
         .on('end', () => {
             console.log("Import Complete");
-            res.send("Uploaded");    
+            // res.send("Uploaded");    
             // Promise.all(allPromises).then(() => {
             //     console.log(`---------- Imported ${allPromises.length} transactions ----------`);
             //     process.exit();
@@ -130,44 +121,6 @@ module.exports = function(app) {
         }
 
         function calculateAvg(data) {
-            // var getUnits = new Promise((resolve, reject) => {
-            //     TransactionsAvg.sum("units", {
-            //         where: {
-            //             user_id: user,
-            //             coin: data.coin
-            //         }
-            //     }).then(function(results) {
-            //         var totalUnits = results;
-            //         resolve(totalUnits);
-            //     });
-            // });
-            // getUnits.then(function(totalUnits) {
-            //     var getCost = new Promise((resolve, reject) => {
-            //         TransactionsAvg.sum("total_cost", {
-            //             where: {
-            //                 user_id: user,
-            //                 coin: data.coin
-            //             }
-            //         }).then(function(results) {
-            //             var totalCost = results;
-            //             resolve(totalCost);
-            //         });
-            //     });
-            //     getCost.then(function(totalCost) {
-            //         var cost = totalCost / totalUnits;
-            //         var sellData = {
-            //             user_id: user,
-            //             coin: data.coin,
-            //             cost: -cost,
-            //             date: data.date,
-            //             price: data.price,
-            //             rate: data.rate,
-            //             units: -data.units,
-            //             total_cost: -cost * data.units
-            //         };
-            //         TransactionsAvg.create(sellData);
-            //     });
-            // });
             var totalCost = 0;
             var totalUnits = 0;
             TransactionsAvg.findAll({
@@ -324,5 +277,5 @@ module.exports = function(app) {
                 return price[0][1];
             }
         }
-    });
-};
+//     });
+// };

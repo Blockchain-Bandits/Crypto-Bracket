@@ -14,10 +14,10 @@ var TransactionsLIFO = sequelize.define("transactionsLIFO", {
     type: Sequelize.DATE
   },
   cost: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.DECIMAL(10, 6)
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.DECIMAL(10, 6)
   },
   rate: {
     type: Sequelize.DECIMAL(10, 6)
@@ -26,7 +26,7 @@ var TransactionsLIFO = sequelize.define("transactionsLIFO", {
     type: Sequelize.DECIMAL(10, 6)
   },
   total_cost: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.DECIMAL(10, 6)
   },
 });
 
