@@ -36,7 +36,7 @@ $(document).ready(function() {
                 var price = tableData[i].units < 0 ? tableData[i].price : tableData[length].currentPrice;
                 var unitDiff = price - tableData[i].cost;
                 var totalDiff = unitDiff * tableData[i].units;
-                var percent = tableData[i].units < 0 ? "" : ((totalDiff / tableData[i].total_cost) * 100) + "%" ;
+                var percent = tableData[i].units < 0 ? "" : ((totalDiff / tableData[i].total_cost) * 100).toFixed(2) + "%" ;
                 $("#transactions").append(
                     "<tr><td>" + date +
                     "</td><td>$" + tableData[i].cost +
