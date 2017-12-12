@@ -1,5 +1,3 @@
-// Dependencies
-// ============
 var flash 				 = require('connect-flash');
 var express        = require('express');
 var path           = require('path');
@@ -10,34 +8,21 @@ var session        = require('express-session');
 var methodOverride = require('method-override'); // for deletes in express
 var passport 			 = require("./config/passport");
 var config				 = require("./config/extra-config");
-// Express settings
-// ================
 
-// instantiate our app
-var app            = express();
+var app = express();
 
-// override POST to have DELETE and PUT
 app.use(methodOverride('_method'));
 
-//allow sessions
-// app.use(session({ secret: 'booty Mctootie', cookie: { maxAge: 60000 }}));
-// app.use(cookieParser());
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// Sets an initial port. We"ll use this later in our listener
+var PORT = process.env.PORT || 8080;
 
-//set up handlebars
-var exphbs = require('express-handlebars');
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
-}));
-app.set('view engine', 'handlebars');
+app.use(express.static("public"));
 
 var isAuth 				 = require("./config/middleware/isAuthenticated");
 var authCheck 		 = require('./config/middleware/attachAuthenticationStatus');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+// Sets up the Express app to handle data parsing
 app.use(logger('dev'));
 app.use(flash());
 app.use(bodyParser.json());
@@ -50,47 +35,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(authCheck);
 
-require("./routes/htmlRoutes")(app);
+// ================================================================================
+// ROUTER
+// The below points our server to a series of "route" files.
+// These routes give our server a "map" of how to respond when users visit or request data from various URLs.
+// ================================================================================
+
+
 // require("./controllers/ccxt")(app);
-var routes = require("./controllers/transactions-controller.js");
+require('./routes');
+require("./controllers/transactions-controller.js");
 
-require('./routes')(app);
 
-// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
-// no stacktraces leaked to user unless in development environment
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: (app.get('env') === 'development') ? err : {}
-  })
-});// This way, we can set certain properties here
-// rather than having them take up space in server.js.
-var debug = require('debug')('express-example');
+// =============================================================================
+// LISTENER
+// The below code effectively "starts" our server
+// =============================================================================
 
-// we bring in the models we exported with index.js
-var db = require("./models");
-
-// we set the port of the app
-app.set('port', process.env.PORT || 8080);
-
-
-// we sync the models with our db 
-// (thus creating the apropos tables)
-db.sequelize.sync().then(function () {
-	// set our app to listen to the port we set above
-  var server = app.listen(app.get('port'), function() {
-  	// then save a log of the listening to our debugger.
-    debug('Express server listening on port ' + server.address().port);
-  });
+app.listen(PORT, function() {
+  console.log("App listening on PORT: " + PORT);
 });
-
-// our module get's exported as app.
-module.exports = app;

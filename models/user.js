@@ -1,6 +1,4 @@
-'use strict';
 var bcrypt = require("bcrypt-nodejs");
-var sequelize = require("../config/connection.js");
 
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
@@ -46,8 +44,6 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-
   User.sync();
-
   return User;
 };

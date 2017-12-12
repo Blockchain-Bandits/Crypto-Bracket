@@ -1,7 +1,8 @@
-module.exports = function(app){
-    
-            var users_controller = require('./controllers/users_controller');
-    
-            app.use('/users', users_controller);
-        //other routes..
-    }
+module.exports = function (app) {
+
+    // Our model controllers (rather than routes)
+    var users = require('./routes/users.js');
+
+    app.use('/users', users);
+    //other routes..
+}

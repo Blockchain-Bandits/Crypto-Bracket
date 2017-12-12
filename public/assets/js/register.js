@@ -56,11 +56,8 @@ $(document).ready(function() {
       }
     });
   
-  
-    // Check if emails match each other
     signUpButton.on("click", function(event) {
       // Replace all alerts with modals
-  
       var userData = {
         username: usernameInput.val().trim(),
         email: emailInput.val().trim(),
@@ -86,6 +83,7 @@ $(document).ready(function() {
         email: email,
         password: password
       }).then(function(data) {
+        console.log(data);
         if (data.duplicateUser) {
           // Replace with Modal
           alert("Sorry, that username has been taken");

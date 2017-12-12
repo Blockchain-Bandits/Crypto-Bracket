@@ -1,6 +1,0 @@
-#!/usr/bin/env node
-
-// Express can launch a www executable to handle certain tasks.
-// www goes in bin (sometimes .bin to keep it hidden)
-
-

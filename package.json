@@ -2,9 +2,9 @@
   "name": "crypto-bracket",
   "version": "1.0.0",
   "description": "",
-  "main": "bittrex.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./bin/www"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,6 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "plottable": "^3.7.0",
-    "sequelize": "^4.27.0"
+    "sequelize": "^4.28.0"
   }
 }
