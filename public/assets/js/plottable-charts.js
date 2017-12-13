@@ -2,14 +2,17 @@
 $(document).ready(function() {
 
     'use strict';
+    var exchangesList = {
+        info: [
+            "acx", "allcoin", "bitfinex", "bitfinex2",
+            "bitmarket", "bitmex", "bittrex",
+            "btcexchange", "gdax", "hitbtc2", "huobi", "kraken",
+            "okcoincny", "okcoinusd", "okex", "poloniex"
+        ]
+    };
 
-
-    $.get("/api/ccxt/bitfinex/BTC%2FUSD/1h/1512432000000/100", function(data) {
-        // for (var i = 0; i < info.length; i++) {
-        //         infoItem = info[i];
-        //         plotData1.push({x: infoItem[0], y: infoItem[1]});
-        //     }
-
+    //render initial chart based on the last 30 days
+    $.get("/api/ccxt/bittrex/BTC%2FUSDT/1h/" + moment().subtract(30, 'days').unix() + "000/400", function(data) {
         var openPrice = data.openPrice.map(item => {
             return { x: new Date(item.x), y: item.y };
         });
@@ -18,6 +21,99 @@ $(document).ready(function() {
             return { x: new Date(item.x), y: item.y };
         });
         financeChart(openPrice, closingPrice);
+    });
+
+    updateSelection("#select-exchange", exchangesList);
+
+    $.get("/api/ccxt-info/bittrex").then(function(data) {
+
+        updateSelection("#select-symbol", { info: data.info.symbols });
+        updateSelection("#select-timeframe", { info: data.info.timeframes });
+        $("#select-symbol").val('BTC/USDT');
+        $("#select-timeframe").val('1h');
+        $("#select-exchange").val('bittrex');
+
+    });
+
+
+    function updateExchangeMenu(exchange, data) {
+        $.get("/api/ccxt-info/" + exchange).then(function(data) {
+
+            if (data.info) {
+                updateSelection("#select-symbol", { info: data.info.symbols });
+                updateSelection("#select-timeframe", { info: data.info.timeframes });
+            } else {
+                $('#exampleModal').modal('show');
+            }
+        });
+    }
+
+    function updateSelection(selection, data) {
+
+        var currentSelection = $(selection);
+        var newOption;
+
+        currentSelection.empty();
+
+        for (var i = 0; i < data.info.length; i++) {
+            newOption = $('<option>');
+            newOption.text(data.info[i]);
+            currentSelection.append(newOption);
+        }
+    }
+
+    $('#submit-chart-request').on('click', function(event) {
+
+        event.preventDefault();
+
+        var selectedExchange = $("#select-exchange").val().trim();
+        var selectedSymbol = $("#select-symbol").val().trim();
+        var selectedTimeframe = $("#select-timeframe").val().trim();
+        var selectedDate = $("#select-date").val().trim();
+        var selectedLimit = $("#select-limit").val();
+
+        selectedDate = moment(new Date(selectedDate)).unix() * 1000;
+        selectedSymbol = selectedSymbol.replace('/', '%2F');
+        selectedLimit = 1000;
+
+        var chartRequest = {
+            exchange: selectedExchange,
+            symbol: selectedSymbol,
+            timeframe: selectedTimeframe,
+            date: selectedDate,
+            limit: selectedLimit
+        };
+
+
+        var requestString = '/' + selectedExchange + '/' +
+            selectedSymbol + '/' +
+            selectedTimeframe + '/' +
+            selectedDate + '/' +
+            selectedLimit;
+
+
+        $.get("/api/ccxt" + requestString, function(data) {
+            var openPrice = data.openPrice.map(item => {
+                return { x: new Date(item.x), y: item.y };
+            });
+
+            var closingPrice = data.closingPrice.map(item => {
+                return { x: new Date(item.x), y: item.y };
+            });
+            $("#financeChartExample").empty();
+            financeChart(openPrice, closingPrice);
+        });
+
+
+    });
+
+    $("#select-exchange").change(function(event) {
+        updateExchangeMenu($("#select-exchange").val());
+    });
+
+
+    $(function() {
+        $("#select-date").datepicker();
     });
 
     function financeChart(data1, data2) {
@@ -30,11 +126,16 @@ $(document).ready(function() {
         var yAxis = new Plottable.Axes.Numeric(yScale, "left");
         var colorScale = new Plottable.Scales.Color();
 
-        var series1 = new Plottable.Dataset(data1, { name: "series1" });
-        var series2 = new Plottable.Dataset(data2, { name: "series2" });
+        var series1 = new Plottable.Dataset(data1, { name: "Opening Price" });
+        var series2 = new Plottable.Dataset(data2, { name: "Closing Price" });
 
-        console.log(data1);
-        console.log(makeSeriesData(10));
+
+        var legend = new Plottable.Components.Legend(colorScale);
+        // colorScale.domain(["Opening Price", "Closing Price"]);
+        legend.xAlignment("center");
+        legend.yAlignment("center");
+    
+
 
         var plot = new Plottable.Plots.Line();
         plot.x(function(d) {
@@ -95,7 +196,8 @@ $(document).ready(function() {
             [yAxis, plot],
             [null, xAxis],
             [null, miniChart],
-            [null, sparklineXAxis]
+            [null, sparklineXAxis],
+            [null,  legend],
         ]);
         chart.rowWeight(2, 0.2);
         chart.renderTo("#financeChartExample");

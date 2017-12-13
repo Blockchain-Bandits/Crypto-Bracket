@@ -10,9 +10,11 @@ var PORT = process.env.PORT || 8080;
 app.use(express.static("public"));
 
 // Sets up the Express app to handle data parsing
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
 app.use(fileUpload());
+
 // ================================================================================
 // ROUTER
 // The below points our server to a series of "route" files.
@@ -21,7 +23,9 @@ app.use(fileUpload());
 
 require("./routes/htmlRoutes")(app);
 require("./controllers/ccxt")(app);
+
 require("./controllers/bittrex-csv.js")(app);
+
 var routes = require("./controllers/transactions-controller.js");
 
 app.use("/", routes);

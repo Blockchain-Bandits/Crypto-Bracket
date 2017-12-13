@@ -1,3 +1,6 @@
+// var express = require("express");
+
+// var router = express.Router();
 
 var ccxt = require("../models/ccxt-model.js");
 
@@ -7,18 +10,18 @@ var ccxt = require("../models/ccxt-model.js");
 // ===============================================================================
 
 module.exports = function(app) {
-    //**********************************
+    // **********************************
     // SEE MANUAL: https://github.com/ccxt/ccxt/wiki/Manual
-    //'timeframes': {      // empty if the exchange !hasFetchOHLCV
+    // 'timeframes': {      // empty if the exchange !hasFetchOHLCV
     //     '1m': '1minute',
     //     '1h': '1hour',
     //     '1d': '1day',
     //     '1M': '1month',
     //     '1y': '1year',
     // },
-    //
-    //Exchange Data Structure
-    //[
+
+    // Exchange Data Structure
+    // [
     //     [
     //         1504541580000, // UTC timestamp in milliseconds
     //         4235.4,        // (O)pen price
@@ -29,28 +32,165 @@ module.exports = function(app) {
     //     ],
     //     ...
     // ]
-    // 
+
     // Use Unix Date with 13 values when passing into request
     // Example: 1512701458000
-    //
-    //**********************************
+
+    // **********************************
+    // app.get("/api/ccxt", function(req, res) {
+    //     console.log("*****DYNAMIC*****");
+    //     console.log(req.url);
+    //     console.log(req.body);
+    //     var info = ccxt.getExchangeData(req.body.exchange, req.body.symbol, req.body.timeframe, req.body.date, req.body.limit).then(function(info) {
+    //         // We have access to the todos as an argument inside of the callback function
+    //         var plotData1 = [];
+    //         var plotData2 = [];
+    //         var infoItem;
+    //         for (var i = 0; i < info.length; i++) {
+    //             infoItem = info[i];
+    //             plotData1.push({ x: infoItem[0], y: infoItem[1] });
+    //         }
+    //         for (var i = 0; i < info.length; i++) {
+    //             infoItem = info[i];
+    //             plotData2.push({ x: infoItem[0], y: infoItem[4] });
+    //         }
+    //         //moment(new Date(infoItem[0])).format("ddd MMM DD YYYY, HH:mm:ss")
+    //         res.json({ openPrice: plotData1, closingPrice: plotData2 });
+    //     });
+    // });
+
     app.get("/api/ccxt/:exchange/:symbol/:timeframe/:date/:limit", function(req, res) {
-        var info = ccxt.getExchangeData(req.params.exchange,req.params.symbol,req.params.timeframe,req.params.date,req.params.limit).then(function(info) {
+        console.log("****STATIC-Data****")
+        console.log(req.url);
+        console.log(req.body);
+        var info = ccxt.getExchangeData(req.params.exchange, req.params.symbol, req.params.timeframe, req.params.date, req.params.limit).then(function(info) {
             // We have access to the todos as an argument inside of the callback function
             var plotData1 = [];
             var plotData2 = [];
             var infoItem;
             for (var i = 0; i < info.length; i++) {
                 infoItem = info[i];
-                plotData1.push({x: infoItem[0], y: infoItem[1]});
+                plotData1.push({ x: infoItem[0], y: infoItem[1] });
             }
             for (var i = 0; i < info.length; i++) {
                 infoItem = info[i];
-                plotData2.push({x: infoItem[0], y: infoItem[4]});
+                plotData2.push({ x: infoItem[0], y: infoItem[4] });
             }
             //moment(new Date(infoItem[0])).format("ddd MMM DD YYYY, HH:mm:ss")
             res.json({ openPrice: plotData1, closingPrice: plotData2 });
-        });
+        })
+        .catch(reason => console.error(reason));
     });
 
+    app.get("/api/ccxt-exchanges", function(req, res) {
+        console.log("****STATIC-exchange****")
+        console.log(req.url);
+
+        //var info = ccxt.getExchangeData(req.params.exchange, req.params.symbol, req.params.timeframe, req.params.date, req.params.limit).then(function(info) {
+        ccxt.getExchanges()
+            .then(function(info) {
+
+                res.json({ info });
+            })
+            .catch(reason => console.error(reason));
+    });
+
+    app.get("/api/ccxt-info/:exchange", function(req, res) {
+        console.log("****STATIC-info****")
+        console.log(req.url);
+        console.log(req.params.exchange);
+
+        //var info = ccxt.getExchangeData(req.params.exchange, req.params.symbol, req.params.timeframe, req.params.date, req.params.limit).then(function(info) {
+        ccxt.getExchangeInfo(req.params.exchange)
+            .then(function(info) {
+
+                res.json({ info });
+            })
+            .catch(reason => console.error(reason));
+    });
 };
+
+// router.get("/api/ccxt", function(req, res) {
+//     console.log("*****DYNAMIC*****");
+//     console.log(req.url);
+//     console.log(req.params);
+//     console.log(req.body);
+//     var info = ccxt.getExchangeData(req.body.exchange, req.body.symbol, req.body.timeframe, req.body.date, req.body.limit)
+//         .then(function(info) {
+//             // We have access to the todos as an argument inside of the callback function
+//             var plotData1 = [];
+//             var plotData2 = [];
+//             var infoItem;
+//             for (var i = 0; i < info.length; i++) {
+//                 infoItem = info[i];
+//                 plotData1.push({ x: infoItem[0], y: infoItem[1] });
+//             }
+//             for (var i = 0; i < info.length; i++) {
+//                 infoItem = info[i];
+//                 plotData2.push({ x: infoItem[0], y: infoItem[4] });
+//             }
+//             //moment(new Date(infoItem[0])).format("ddd MMM DD YYYY, HH:mm:ss")
+//             res.json({ openPrice: plotData1, closingPrice: plotData2 });
+//         })
+//         .catch(reason => console.error(reason));
+// });
+
+
+// router.get("/api/ccxt/:exchange/:symbol/:timeframe/:date/:limit", function(req, res) {
+//     console.log("****STATIC****")
+//     console.log(req.url);
+//     console.log(req.body);
+//     console.log(req.params);
+
+//     if (req.params.limit > 1000) {
+//         re.params.limit = 1000;
+//     }
+//     //var info = ccxt.getExchangeData(req.params.exchange, req.params.symbol, req.params.timeframe, req.params.date, req.params.limit).then(function(info) {
+//     var info = ccxt.getExchangeData(req.params.exchange, req.params.symbol, req.params.timeframe, req.params.date, req.params.limit)
+//         .then(function(info) {
+
+//             // We have access to the todos as an argument inside of the callback function
+//             var plotData1 = [];
+//             var plotData2 = [];
+//             var infoItem;
+//             for (var i = 0; i < info.length; i++) {
+//                 infoItem = info[i];
+//                 plotData1.push({ x: infoItem[0], y: infoItem[1] });
+//             }
+//             for (var i = 0; i < info.length; i++) {
+//                 infoItem = info[i];
+//                 plotData2.push({ x: infoItem[0], y: infoItem[4] });
+//             }
+//             //moment(new Date(infoItem[0])).format("ddd MMM DD YYYY, HH:mm:ss")
+//             res.json({ openPrice: plotData1, closingPrice: plotData2 });
+//         })
+//         .catch(reason => console.error(reason));
+// });
+
+// router.get("/api/ccxt-exchanges", function(req, res) {
+//     console.log("****STATIC****")
+//     console.log(req.url);
+
+//     //var info = ccxt.getExchangeData(req.params.exchange, req.params.symbol, req.params.timeframe, req.params.date, req.params.limit).then(function(info) {
+//     ccxt.getExchanges()
+//         .then(function(info) {
+
+//             res.json({ info });
+//         })
+//         .catch(reason => console.error(reason));
+// });
+
+// router.get("/api/ccxt-info/:exchange", function(req, res) {
+//     console.log("****STATIC****")
+//     console.log(req.url);
+
+//     //var info = ccxt.getExchangeData(req.params.exchange, req.params.symbol, req.params.timeframe, req.params.date, req.params.limit).then(function(info) {
+//     ccxt.getExchangeInfo(req.params.exchange)
+//         .then(function(info) {
+
+//             res.json({ info });
+//         })
+//         .catch(reason => console.error(reason));
+// });
+
+// module.exports = router;
