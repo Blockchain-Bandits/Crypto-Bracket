@@ -99,3 +99,7 @@ a:hover, a:focus {
   color: inherit;
   text-decoration: underline;
 }
+
+.btn {
+  border-radius: 0.25rem;
+}

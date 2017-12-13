@@ -1797,7 +1797,7 @@ STYLE SWITCHER FOR DEMO
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   line-height: 1.25;
-  border-radius: 0;
+  border-radius: 0.25rem;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
 }
