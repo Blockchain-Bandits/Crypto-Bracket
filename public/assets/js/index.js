@@ -51,7 +51,7 @@ $(document).ready(function(){
             var scroll_pos = 0;
             $(document).scroll(function() { 
                 scroll_pos = $(this).scrollTop();
-                if(scroll_pos > 10) {
+                if(scroll_pos > 50) {
                     $("nav").css('background-color', 'white');
                     $("nav a").css('color', 'black');
                 } else {
@@ -67,9 +67,9 @@ $(document).ready(function(){
             $(document).scroll(function() { 
                 scroll_pos = $(this).scrollTop();
                 if(scroll_pos > 10) {
-                    $("btn").css('background-color', 'transparent');
+                    $("Button").css('style', '');
                 } else {
-                    $("btn").css('background-color', 'blue');
+                    $("Button").css('style', 'animated slideInRight');
                 }
             });
         });

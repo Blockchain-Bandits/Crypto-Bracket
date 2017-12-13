@@ -4,12 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Blockchain Bandits</title>
+    <title>Crypto Bracket</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Material Design Bootstrap -->
+    <link href="assets/mdb/css/mdb.min.css" rel="stylesheet">
     <!-- Font Awesome CSS-->
     <link rel="stylesheet" href="assets/vendor/font-awesome/css/font-awesome.min.css">
     <!-- Custom icon font-->
@@ -21,7 +23,7 @@
     <!-- Custom Scrollbar-->
     <link rel="stylesheet" href="assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="assets/css/style.red.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="assets/css/style.blue.css" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="assets/css/custom.css">
     <!-- Favicon-->
@@ -37,15 +39,17 @@
     <div class="page login-page">
         <!-- new navbar -->
         <div class="nav">
-            <nav class="navbar navbar-default fixed-top" style="background-color: white">
+            <nav class="navbar navbar-default fixed-top" style="background-color: transparent;">
                 <div class="container-fluid">
+                    <img src="assets/img/crypto-bracket-logo-2.png" alt="Company Logo">
                     <a class="navbar-brand" href="#"></a>
                     <div class="d-flex flex-row-reverse"> 
-                        <button type="button" class="btn btn-outline-primary">Sign Up</button>
-                        <div class="p-2"><a class="work" href="#"> <h1>Help </h1>    </a> </div>
-                        <div class="p-2"><a href ="#" ><h1>Explore </h1>    </a></div>
-                        <div class="p-2"><a href ="#"> <h1>About </h1>    </a></div>
-
+                        <div class ="Button">
+                        <a id="signup" href="/register"> <button type="button" class="btn btn-outline-primary">Sign Up</button> </a>
+                        </div>
+                        <div class="p-2"><a href ="/explore" ><h1>Explore </h1>    </a></div>
+                        <div class="p-2"><a href ="/about"> <h1>About </h1>    </a></div>
+                        
                     </div>
                 </div>
         </div>
@@ -55,11 +59,12 @@
             <section>
                 <div class="image" data-type="background" data-speed="2"></div>
                 <div class="stuff" data-type="content">
+                     <img src="" id ="main-logo" alt="">
                     <div class="container">
                         <div class="form-outer text-center d-flex align-items-center" ">
                     <div id="form1 " class="form-inner ">
                         <div class="logo text-uppercase "><span>Crypto</span><strong class="text-primary ">Bracket</strong></div>
-                        <p>Please sign in.</p>
+                        
                         <form id="login-form " method="post ">
                             <div class="form-group ">
                                 <label for="login-username " class="label-custom ">User Name</label>
@@ -67,21 +72,23 @@
                             </div>
                             <div class="form-group ">
                                 <label for="login-password " class="label-custom ">Password</label>
-                                <input id="login-password " type="password " name="loginPassword " required=" ">
-                            </div><a id="login " href="index.html " class="btn btn-primary btn-lg ">Login</a>
+                                <input id="login-password " type="password" name="loginPassword " required=" ">
+                            </div><a id="login " href="/index" class="btn btn-primary btn-lg ">Login</a>
                             <!-- This should be submit button but I replaced it with <a> for demo purposes-->
-                        </form><a href="# " class="forgot-pass ">Forgot Password?</a><small>Do not have an account? </small><a href="register.html " class="signup ">Signup</a>
+                        </form>
+                        <!-- <a href="# " class="forgot-pass ">Forgot Password?</a> -->
+                        <a href="/register " class="signup " style="color: black">Signup</a>
                     </div>
                   
                 </div>
             </div>
-</div>
+
             </section>
 
 
   <section>
     <div class="image " data-type="background " data-speed="7 "></div>
-    <div class="stuff " data-type="content "><p>Discover a new way to manage your funds.</p></div>
+    <div class="stuff " id = "discover" data-type="content "><font color = "black">Discover a new way to manage your funds.</font></div>
   </section>
 
 
@@ -89,8 +96,8 @@
             <br>
             <br>
 <p>
-    <a href ="#">Terms of Service</a> | 
-    <a href ="#">Contact</a>
+    <a href ="/terms">Terms of Service</a> | 
+    <a href ="/contact">Contact</a>
 
     </p>
             <br>
@@ -99,6 +106,8 @@
         </div>
         <!-- Javascript files-->
         <script src="https://code.jquery.com/jquery-3.2.1.min.js "></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="assets/mdb/js/mdb.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js ">
         </script>
         <script src="assets/vendor/bootstrap/js/bootstrap.min.js "></script>
