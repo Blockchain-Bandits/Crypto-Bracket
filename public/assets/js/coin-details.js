@@ -19,12 +19,12 @@ $(document).ready(function() {
             if(totalCost > 0 && totalUnits > 0) {
                 $("#coins").append(
                     "<tr class='get-details' id='" + tableData[i].coin + "'><td>" + tableData[i].coin +
-                    "</td><td>$" + avgCost.toFixed(2) +
-                    "</td><td>$" + price.toFixed(2) +
-                    "</td><td>" + totalUnits.toFixed(2) +
-                    "</td><td>$" + totalCost.toFixed(2) +
-                    "</td><td>$" + unitDiff.toFixed(2) +
-                    "</td><td>$" + totalDiff.toFixed(2) +
+                    "</td><td>$" + avgCost.toFixed(4) +
+                    "</td><td>$" + price.toFixed(4) +
+                    "</td><td>" + totalUnits.toFixed(4) +
+                    "</td><td>$" + totalCost.toFixed(4) +
+                    "</td><td>$" + unitDiff.toFixed(4) +
+                    "</td><td>$" + totalDiff.toFixed(4) +
                     "</td><td>" + percent.toFixed(2) + "%</td></tr>"
                 );
             }
@@ -38,6 +38,7 @@ $(document).ready(function() {
 
     $("#upload").on("submit", function(event) {
         event.preventDefault();
+        $("#submit").val("Uploading...");
         var files = document.getElementById("file").files;
         var file = files[0];
         var formData = new FormData();
@@ -55,8 +56,12 @@ $(document).ready(function() {
         xhr.open('POST', '/upload', true);  
         // File Location, this is where the data will be posted
         xhr.send(formData);
-        xhr.onload = function () {
-            window.location.href = currentURL + '/coins'
-        }
+        xhr.onload = setTimeout(function () {
+            $("#coins").append("<button id='reload'>Load Coins</button>");
+        }, 30000);
+    });
+
+    $(document).on("click", "#reload", function () {
+        window.location.href = currentURL + '/coins';
     });
 });
