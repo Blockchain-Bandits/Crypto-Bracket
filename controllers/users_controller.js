@@ -4,25 +4,25 @@ var sequelize = require("../config/connection.js");
 var db = require('../models/user.js')(sequelize, DataTypes);
 
 //this is the users_controller.js file
-exports.registrationPage = function(req,res) {
-  res.sendFile(path.join(__dirname, "../public/register.html"));
+exports.registrationPage = function (req, res) {
+  res.send(path.join(__dirname, "../public/register.html"));
 };
 
-exports.signOutUser = function(req,res) {
+exports.signOutUser = function (req, res) {
   req.logout();
   res.redirect("/");
 };
 
 // login
-exports.loginUser = function(req, res) {
-    // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
-    // So we're sending the user back the route to the members page because the redirect will happen on the front end
-    // They won't get this or even be able to access this page if they aren't authed
+exports.loginUser = function (req, res) {
+  // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
+  // So we're sending the user back the route to the members page because the redirect will happen on the front end
+  // They won't get this or even be able to access this page if they aren't authed
   res.json("/");
 };
 
 // register a user
-exports.signUpUser = function(req,res) {
+exports.signUpUser = function (req, res) {
 
   db.findAll({
     where: {username: req.body.username}
@@ -40,9 +40,9 @@ exports.signUpUser = function(req,res) {
       }).then(function() {
         res.send({redirect: '/'});
       }).catch(function(err) {
+        console.log(err);
         res.json(err);
       });
     }
   });
 };
-

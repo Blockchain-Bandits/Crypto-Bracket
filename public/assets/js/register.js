@@ -83,7 +83,6 @@ $(document).ready(function() {
         email: email,
         password: password
       }).then(function(data) {
-        console.log(data);
         if (data.duplicateUser) {
           // Replace with Modal
           alert("Sorry, that username has been taken");
