@@ -24,7 +24,6 @@ var isAuth = require("./config/middleware/isAuthenticated");
 var authCheck = require('./config/middleware/attachAuthenticationStatus');
 
 // Sets up the Express app to handle data parsing
-<<<<<<< HEAD
 app.use(logger('dev'));
 app.use(flash());
 app.use(bodyParser.json());
@@ -42,10 +41,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(authCheck);
-=======
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
->>>>>>> 7b65cad17fff9332ff558475f9b3df45a30e3437
 
 app.use(fileUpload());
 
@@ -56,15 +51,11 @@ app.use(fileUpload());
 // ================================================================================
 
 require("./routes/htmlRoutes")(app);
-<<<<<<< HEAD
-require("./controllers/bittrex-csv.js")(app);
-=======
 require("./controllers/ccxt")(app);
 
 require("./controllers/bittrex-csv.js")(app);
 
 var routes = require("./controllers/transactions-controller.js");
->>>>>>> 7b65cad17fff9332ff558475f9b3df45a30e3437
 
 require("./controllers/ccxt")(app);
 require('./routes')(app);
