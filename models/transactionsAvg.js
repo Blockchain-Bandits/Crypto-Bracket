@@ -14,19 +14,19 @@ var TransactionsAvg = sequelize.define("transactionsAvg", {
     type: Sequelize.DATE
   },
   cost: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.DECIMAL(20, 6)
   },
   price: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.DECIMAL(20, 6)
   },
   rate: {
-    type: Sequelize.DECIMAL(10, 6)
+    type: Sequelize.DECIMAL(20, 6)
   },
   units: {
-    type: Sequelize.DECIMAL(10, 6)
+    type: Sequelize.DECIMAL(20, 6)
   },
   total_cost: {
-    type: Sequelize.DECIMAL(10, 2)
+    type: Sequelize.DECIMAL(20, 6)
   },
 });
 

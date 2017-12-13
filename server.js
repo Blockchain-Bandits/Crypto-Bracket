@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-
+var fileUpload = require('express-fileupload');
 var app = express();
 
 
@@ -12,10 +12,8 @@ app.use(express.static("public"));
 // Sets up the Express app to handle data parsing
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.text());
-//app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+
+app.use(fileUpload());
 
 // ================================================================================
 // ROUTER
@@ -25,8 +23,9 @@ app.use(bodyParser.json());
 
 require("./routes/htmlRoutes")(app);
 require("./controllers/ccxt")(app);
-// var routes = require("./controllers/ccxt.js");
-// app.use("/", routes);
+
+require("./controllers/bittrex-csv.js")(app);
+
 var routes = require("./controllers/transactions-controller.js");
 
 app.use("/", routes);

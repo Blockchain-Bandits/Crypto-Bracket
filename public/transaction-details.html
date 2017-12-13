@@ -36,6 +36,92 @@
 </head>
 
 <body>
+    <!-- Side Navbar -->
+    <nav class="side-navbar">
+        <div class="side-navbar-wrapper">
+            <div class="sidenav-header d-flex align-items-center justify-content-center">
+            <div class="sidenav-header-inner text-center"><img src="assets/img/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
+                <h2 class="h5 text-uppercase">Anderson Hardy</h2><span class="text-uppercase">Web Developer</span>
+            </div>
+            <div class="sidenav-header-logo"><a href="index.html" class="brand-small text-center"> <strong>B</strong><strong class="text-primary">D</strong></a></div>
+            </div>
+            <div class="main-menu">
+            <ul id="side-main-menu" class="side-menu list-unstyled">                  
+                <li><a href="index.html"> <i class="icon-home"></i><span>Home</span></a></li>
+                <li class="active"> <a href="/coins"> <i class="icon-grid"> </i><span>Portfolio  </span></a></li>
+                <li> <a href="forms.html"><i class="icon-form"></i><span>Forms</span></a></li>
+                <li> <a href="charts.html"><i class="icon-presentation"></i><span>Charts</span></a></li>
+            </div>
+        </div>
+    </nav>
+    <div class="page home-page">
+    <!-- navbar-->
+    <header class="header">
+        <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+            <div class="navbar-header"><a id="toggle-btn" href="#" class="menu-btn"><i class="icon-bars"> </i></a><a href="index.html" class="navbar-brand">
+                <div class="brand-text d-none d-md-inline-block"><span>Crypto </span><strong class="text-primary"> Bracket</strong></div></a></div>
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+                <li class="nav-item dropdown"> <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-bell"></i><span class="badge badge-warning">12</span></a>
+                <ul aria-labelledby="notifications" class="dropdown-menu">
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-envelope"></i>You have 6 new messages </div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-upload"></i>Server Rebooted</div>
+                        <div class="notification-time"><small>4 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item"> 
+                        <div class="notification d-flex justify-content-between">
+                        <div class="notification-content"><i class="fa fa-twitter"></i>You have 2 followers</div>
+                        <div class="notification-time"><small>10 minutes ago</small></div>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-bell"></i>view all notifications                                            </strong></a></li>
+                </ul>
+                </li>
+                <li class="nav-item dropdown"> <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link"><i class="fa fa-envelope"></i><span class="badge badge-info">10</span></a>
+                <ul aria-labelledby="notifications" class="dropdown-menu">
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="assets/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                        <h3 class="h5">Jason Doe</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="assets/img/avatar-2.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                        <h3 class="h5">Frank Williams</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item d-flex"> 
+                        <div class="msg-profile"> <img src="assets/img/avatar-3.jpg" alt="..." class="img-fluid rounded-circle"></div>
+                        <div class="msg-body">
+                        <h3 class="h5">Ashley Wood</h3><span>sent you a direct message</span><small>3 days ago at 7:58 pm - 10.06.2014</small>
+                        </div></a></li>
+                    <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong> <i class="fa fa-envelope"></i>Read all messages    </strong></a></li>
+                </ul>
+                </li>
+                <li class="nav-item"><a href="login.html" class="nav-link logout">Logout<i class="fa fa-sign-out"></i></a></li>
+            </ul>
+            </div>
+        </div>
+        </nav>
+    </header>
+    <div class="breadcrumb-holder">   
+        <div class="container-fluid">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Charts</li>
+        </ul>
+        </div>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
@@ -78,65 +164,40 @@
             </div>
         </div>
     </div>
+    <footer class="main-footer">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-sm-6">
+                <p>Your company &copy; 2017-2019</p>
+            </div>
+            <div class="col-sm-6 text-right">
+                <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
+                <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+            </div>
+            </div>
+        </div>
+    </footer>
 </body>
 
-
-<script type="text/javascript">
-    // Get the location of the root page.
-    var currentURL = window.location.origin;
-
-    $.ajax({ url: currentURL + "/api/transactions", method: "GET" })
-    .done(function(tableData) {
-
-        // Here we then log the data to console, where it will show up as an object.
-        console.log(tableData);
-        console.log("------------------------------------");
-
-        // Loop through and display each of the customers
-        for (var i = 0; i < tableData.length; i++) {
-            $("#select-coin").append("<option value='" + tableData[i].coin + "'>" + tableData[i].coin + "</option>");
-        }
-    });
-
-    function runTableQuery(coin, method) {
-        $("#transactions").empty();
-        
-        // The AJAX function uses the URL of our API to GET the data associated with it (initially set to localhost)
-        $.ajax({ url: currentURL + `/api/transactions/${coin}/${method}`, method: "GET" })
-        .done(function(tableData) {
-
-            // Here we then log the data to console, where it will show up as an object.
-            console.log(tableData);
-            
-            var length = tableData.length - 1;
-            // Loop through and display each of the customers
-            for (var i = 0; i < length; i++) {
-                var unitDiff = tableData[length].currentPrice - tableData[i].cost;
-                var totalDiff = unitDiff * tableData[i].units;
-                var percent = tableData[i].units < 0 ? "" : ((tableData[i].total_cost + totalDiff) / tableData[i].total_cost) * 100;
-                $("#transactions").append("<tr><td>" + tableData[i].date +
-                    "</td><td>$" + tableData[i].cost.toFixed(2) +
-                    "</td><td>$" + tableData[i].price.toFixed(2) +
-                    "</td><td>$" + tableData[i].units.toFixed(2) +
-                    "</td><td>$" + tableData[i].total_cost.toFixed(2) +
-                    "</td><td>$" + unitDiff.toFixed(2) +
-                    "</td><td>$" + totalDiff.toFixed(2) +
-                    "</td><td>" + percent.toFixed(2) + "%</td></tr>"
-                );
-            }
-        });
-    }
-
-    $("#select-form").on("submit", function() {
-        event.preventDefault();
-        var coin = $("#select-coin").val();
-        var method = $("#select-method").val();
-        runTableQuery(coin, method);
-    });
-
-</script>
-
 <script type="text/javascript" src="assets/js/transaction-details.js"></script>
->>>>>>> 0ce5e009dba5e7366c7ee04fb10b22af04e92af3
+<!-- Javascript files-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"> </script>
+<script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="assets/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+<script src="assets/vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+<script src="assets/js/front.js"></script>
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
+<!---->
+<script>
+  (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+  function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+  e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+  e.src='//www.google-analytics.com/analytics.js';
+  r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+  ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
 
 </html>
