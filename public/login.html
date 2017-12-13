@@ -44,10 +44,10 @@
                     <img src="assets/img/crypto-bracket-logo-2.png" alt="Company Logo">
                     <a class="navbar-brand" href="#"></a>
                     <div class="d-flex flex-row-reverse"> 
-                        <button type="button" class="btn btn-outline-primary animated slideInRight">Sign Up</button>
-                        <div class="p-2"><a class="work" href="#"> <h1>Help </h1>    </a> </div>
-                        <div class="p-2"><a href ="#" ><h1>Explore </h1>    </a></div>
-                        <div class="p-2"><a href ="#"> <h1>About </h1>    </a></div>
+                        <a id="signup" href="/register"> <button type="button" class="btn btn-outline-primary animated slideInRight">Sign Up</button> </a>
+                        
+                        <div class="p-2"><a href ="/explore" ><h1>Explore </h1>    </a></div>
+                        <div class="p-2"><a href ="/about"> <h1>About </h1>    </a></div>
                         
                     </div>
                 </div>
@@ -58,12 +58,12 @@
             <section>
                 <div class="image" data-type="background" data-speed="2"></div>
                 <div class="stuff" data-type="content">
-                     <img src="assets/img/.jpg" id ="main-logo" alt="">
+                     <img src="" id ="main-logo" alt="">
                     <div class="container">
                         <div class="form-outer text-center d-flex align-items-center" ">
                     <div id="form1 " class="form-inner ">
                         <div class="logo text-uppercase "><span>Crypto</span><strong class="text-primary ">Bracket</strong></div>
-                        <p>Please sign in.  </p>
+                        
                         <form id="login-form " method="post ">
                             <div class="form-group ">
                                 <label for="login-username " class="label-custom ">User Name</label>
@@ -71,10 +71,12 @@
                             </div>
                             <div class="form-group ">
                                 <label for="login-password " class="label-custom ">Password</label>
-                                <input id="login-password " type="password " name="loginPassword " required=" ">
-                            </div><a id="login " href="index.html " class="btn btn-primary btn-lg ">Login</a>
+                                <input id="login-password " type="password" name="loginPassword " required=" ">
+                            </div><a id="login " href="/index" class="btn btn-primary btn-lg ">Login</a>
                             <!-- This should be submit button but I replaced it with <a> for demo purposes-->
-                        </form><a href="# " class="forgot-pass ">Forgot Password?</a><small>Do not have an account? </small><a href="register.html " class="signup ">Signup</a>
+                        </form>
+                        <!-- <a href="# " class="forgot-pass ">Forgot Password?</a> -->
+                        <a href="/register " class="signup " style="color: black">Signup</a>
                     </div>
                   
                 </div>
@@ -93,8 +95,8 @@
             <br>
             <br>
 <p>
-    <a href ="#">Terms of Service</a> | 
-    <a href ="#">Contact</a>
+    <a href ="/terms">Terms of Service</a> | 
+    <a href ="/contact">Contact</a>
 
     </p>
             <br>
