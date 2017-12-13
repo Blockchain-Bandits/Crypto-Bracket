@@ -16,7 +16,7 @@ $(document).ready(function() {
             var unitDiff = price - avgCost;
             var totalDiff = unitDiff * totalUnits;
             var percent = (totalDiff / totalCost) * 100;
-            if(totalUnits > 0) {
+            if(totalCost > 0 && totalUnits > 0) {
                 $("#coins").append(
                     "<tr class='get-details' id='" + tableData[i].coin + "'><td>" + tableData[i].coin +
                     "</td><td>$" + avgCost.toFixed(2) +
