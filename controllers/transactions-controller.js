@@ -97,7 +97,6 @@ router.get("/api/coins", isAuthenticated, function(req, res) {
         // BTCPrice.then(function(price) {
             results.forEach(function(coin) {
                 var ticker = coin.dataValues.coin;
-                console.log(ticker);
                 allPromises.push(new Promise((resolve, reject) => {
                     var getCoinPrice = new Promise((resolve, reject) => {
                         if (ticker === 'BTC') {
@@ -118,7 +117,6 @@ router.get("/api/coins", isAuthenticated, function(req, res) {
                                     coin: ticker
                                 }
                             }).then(function(results) {
-                                console.log("units: " + results);
                                 var totalUnits = results;
                                 resolve(totalUnits);
                             });
@@ -131,7 +129,6 @@ router.get("/api/coins", isAuthenticated, function(req, res) {
                                         coin: ticker
                                     }
                                 }).then(function(results) {
-                                    console.log("total cost: " + results);
                                     var totalCost = results;
                                     resolve(totalCost);
                                 });
@@ -144,20 +141,12 @@ router.get("/api/coins", isAuthenticated, function(req, res) {
                                     totalCost: totalCost
                                 });
                                 resolve();
-                                // return {
-                                //     coin: ticker,
-                                //     price: coinPrice,
-                                //     totalUnits: totalUnits,
-                                //     totalCost: totalCost
-                                // };
                             });
                         });
                     });
                 }));
             });
             Promise.all(allPromises).then(function() {
-                console.log(coinInfo);
-                // results.push(coinInfo);
                 res.json(coinInfo);
             }).catch((err) => {
                 throw err;

@@ -39,12 +39,12 @@ $(document).ready(function() {
                 var percent = tableData[i].units < 0 ? "" : ((totalDiff / tableData[i].total_cost) * 100).toFixed(2) + "%" ;
                 $("#transactions").append(
                     "<tr><td>" + date +
-                    "</td><td>$" + tableData[i].cost +
-                    "</td><td>$" + price +
+                    "</td><td>$" + Math.round(tableData[i].cost * 10000) / 10000 +
+                    "</td><td>$" + Math.round(price * 10000) / 10000 +
                     "</td><td>$" + tableData[i].rate +
                     "</td><td>" + tableData[i].units +
-                    "</td><td>$" + tableData[i].total_cost +
-                    "</td><td>$" + unitDiff.toFixed(2) +
+                    "</td><td>$" + Math.round(tableData[i].total_cost * 10000) / 10000 +
+                    "</td><td>$" + unitDiff.toFixed(4) +
                     "</td><td>$" + totalDiff.toFixed(2) +
                     "</td><td>" + percent + "</td></tr>"
                 );
