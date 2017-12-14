@@ -33,6 +33,10 @@ $(document).ready(function() {
         $("#select-timeframe").val('1h');
         $("#select-exchange").val('bittrex');
 
+        // $('#select-exchange').selectize();
+        // $('#select-symbol').selectize();
+        // $('#select-timeframe').selectize();
+
     });
 
 
@@ -42,6 +46,8 @@ $(document).ready(function() {
             if (data.info) {
                 updateSelection("#select-symbol", { info: data.info.symbols });
                 updateSelection("#select-timeframe", { info: data.info.timeframes });
+                // $('#select-exchange').selectize(data.info.symbols);
+                // $('#select-symbol').selectize(data.info.timeframes);
             } else {
                 $('#exampleModal').modal('show');
             }
@@ -83,7 +89,7 @@ $(document).ready(function() {
             date: selectedDate,
             limit: selectedLimit
         };
-
+        console.log(chartRequest);
 
         var requestString = '/' + selectedExchange + '/' +
             selectedSymbol + '/' +
@@ -124,7 +130,9 @@ $(document).ready(function() {
         xAxis.formatter(Plottable.Formatters.multiTime());
         var yScale = new Plottable.Scales.Linear();
         var yAxis = new Plottable.Axes.Numeric(yScale, "left");
+        var yLabel = new Plottable.Components.AxisLabel($("#select-symbol").val(), "270");
         var colorScale = new Plottable.Scales.Color();
+        colorScale.range(["#e89b17", "#2b90d9"]);
 
         var series1 = new Plottable.Dataset(data1, { name: "Opening Price" });
         var series2 = new Plottable.Dataset(data2, { name: "Closing Price" });
@@ -134,7 +142,8 @@ $(document).ready(function() {
         // colorScale.domain(["Opening Price", "Closing Price"]);
         legend.xAlignment("center");
         legend.yAlignment("center");
-    
+
+
 
 
         var plot = new Plottable.Plots.Line();
@@ -193,11 +202,11 @@ $(document).ready(function() {
         output.text(outputDefaultText);
 
         var chart = new Plottable.Components.Table([
-            [yAxis, plot],
-            [null, xAxis],
-            [null, miniChart],
-            [null, sparklineXAxis],
-            [null,  legend],
+            [yLabel, yAxis, plot],
+            [null, null, xAxis],
+            [null, null, miniChart],
+            [null, null, sparklineXAxis],
+            [null, null, legend],
         ]);
         chart.rowWeight(2, 0.2);
         chart.renderTo("#financeChartExample");

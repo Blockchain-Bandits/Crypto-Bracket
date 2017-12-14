@@ -30,7 +30,6 @@ var node_ccxt = {
         if (selectedExchange.hasFetchOHLCV) {
             await sleep(exchange.rateLimit) // milliseconds
             var availableTimeframes = Object.keys(selectedExchange.timeframes);
-
             return { symbols: selectedExchange.symbols, timeframes: availableTimeframes };
         }else{
             return null;
