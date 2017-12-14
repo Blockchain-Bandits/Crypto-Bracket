@@ -1,8 +1,11 @@
-USE masterAuth;
+USE project_two;
 
-CREATE TABLE authentication(
+CREATE TABLE users(
   id INT NOT NULL AUTO_INCREMENT,
   username VARCHAR(20) NOT NULL,
   password VARCHAR(20) NOT NULL,
+  email TEXT NOT NULL,
+  createdAt datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  updatedAt DATE NOT NULL,
   PRIMARY KEY (id)
 );

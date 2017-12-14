@@ -2,7 +2,7 @@
   "name": "crypto-bracket",
   "version": "1.0.0",
   "description": "",
-  "main": "bittrex.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,19 +16,34 @@
     "url": "https://github.com/Blockchain-Bandits/Crypto-Bracket/issues"
   },
   "homepage": "https://github.com/Blockchain-Bandits/Crypto-Bracket#readme",
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "font-awesome": "^4.6.3",
+    "jquery": "^1.11.3"
+  },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.2",
-    "ccxt": "^1.10.317",
+    "ccxt": "^1.10.337",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "method-override": "^2.3.10",
     "express-fileupload": "^0.3.0",
     "fast-csv": "^2.4.1",
     "lodash": "^4.17.4",
     "moment": "^2.19.2",
+    "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.1",
     "node-bittrex-api": "^0.7.8",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "plottable": "^3.7.0",
-    "sequelize": "^4.27.0"
+    "sequelize": "^4.28.0",
+    "sequelize-cli": "^2.7.0"
   }
 }

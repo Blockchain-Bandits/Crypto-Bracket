@@ -7,14 +7,19 @@ var TransactionsAvg = require("../models/transactionsAvg.js");
 var TransactionsFIFO = require("../models/transactionsFIFO.js");
 var TransactionsLIFO = require("../models/transactionsLIFO.js");
 
-var user = 1;
+var isAuthenticated = require("../config/middleware/isAuthenticated");
+
+function user(req,res) {
+    req.body.UserId = req.user.id;
+    return req.body.UserId;
+};
 
 var price;
 bittrex.getticker( { market : 'USDT-BTC' }, function( data, err ) {
     price = data.result.Last;
 });
 
-router.get("/api/transactions/:coin/:method", function(req, res) {
+router.get("/api/transactions/:coin/:method", isAuthenticated, function(req, res) {
     var coin = req.params.coin;
     var coinPrice;
 
@@ -27,7 +32,7 @@ router.get("/api/transactions/:coin/:method", function(req, res) {
         if (req.params.method === 'avg') {
             TransactionsAvg.findAll({
                 where: {
-                    user_id: user,
+                    user_id: user(),
                     coin: coin
                 },
                 order: ["date"]
@@ -38,7 +43,7 @@ router.get("/api/transactions/:coin/:method", function(req, res) {
         } else if (req.params.method === 'fifo') {
             TransactionsFIFO.findAll({
                 where: {
-                    user_id: user,
+                    user_id: user(),
                     coin: coin
                 },
                 order: ["date"]
@@ -49,7 +54,7 @@ router.get("/api/transactions/:coin/:method", function(req, res) {
         } else if (req.params.method === 'lifo') {
             TransactionsLIFO.findAll({
                 where: {
-                    user_id: user,
+                    user_id: user(),
                     coin: coin
                 },
                 order: ["date"]
@@ -60,10 +65,10 @@ router.get("/api/transactions/:coin/:method", function(req, res) {
         }
     });
 });
-router.get("/api/transactions", function(req, res) {
+router.get("/api/transactions", isAuthenticated, function(req, res) {
     TransactionsAvg.findAll({
         where: {
-            user_id: user
+            user_id: user()
         },
         attributes: ["coin"],
         group: "coin"
@@ -71,11 +76,11 @@ router.get("/api/transactions", function(req, res) {
         res.json(data);
     });
 });
-router.get("/api/coins", function(req, res) {
+router.get("/api/coins", isAuthenticated, function(req, res) {
     
     TransactionsAvg.findAll({
         where: {
-            user_id: user
+            user_id: user()
         },
         attributes: ["coin"],
         group: "coin"
@@ -108,7 +113,7 @@ router.get("/api/coins", function(req, res) {
                         var getUnits = new Promise((resolve, reject) => {
                             TransactionsAvg.sum("units", {
                                 where: {
-                                    user_id: user,
+                                    user_id: user(),
                                     coin: ticker
                                 }
                             }).then(function(results) {
@@ -120,7 +125,7 @@ router.get("/api/coins", function(req, res) {
                             var getCost = new Promise((resolve, reject) => {
                                 TransactionsAvg.sum("total_cost", {
                                     where: {
-                                        user_id: user,
+                                        user_id: user(),
                                         coin: ticker
                                     }
                                 }).then(function(results) {
