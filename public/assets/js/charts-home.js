@@ -80,13 +80,13 @@ $(document).ready(function () {
         type: 'doughnut',
         data: {
             labels: [
-                "First",
-                "Second",
-                "Third"
+                "Bitcoin",
+                "Etherium",
+                "LiteCoin"
             ],
             datasets: [
                 {
-                    data: [300, 50, 100],
+                    data: [2560.4, 523.56, 124.24],
                     borderWidth: [1, 1, 1],
                     backgroundColor: [
                         brandPrimary,
