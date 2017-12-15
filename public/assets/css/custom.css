@@ -69,3 +69,8 @@
 #main-logo {
 
 }
+
+.get-details:hover {
+  color: #2b90d9;
+  cursor: pointer;
+}

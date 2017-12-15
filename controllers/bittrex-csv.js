@@ -11,7 +11,7 @@ var ccxt = require('ccxt');
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
-    app.post('/upload', function(req, res) {
+    app.post('/upload', isAuthenticated, function(req, res) {
         var user = req.user.id;
         var file = req.files.orders;
         console.log(file);
@@ -129,14 +129,14 @@ module.exports = function(app) {
 
         function createBuy(data) {
             console.log("Inserting a new purchase...\n");
-            // TransactionsAvg.create(data);
-            // TransactionsFIFO.create(data);
+            TransactionsAvg.create(data);
+            TransactionsFIFO.create(data);
             TransactionsLIFO.create(data);
         }
 
         function createSale(data) {
-            // calculateAvg(data);
-            // calculateFIFO(data);
+            calculateAvg(data);
+            calculateFIFO(data);
             calculateLIFO(data);
         }
         var avgCount = 0;
@@ -314,6 +314,8 @@ module.exports = function(app) {
             if (selectedExchange.hasFetchOHLCV) {
                 
                 await selectedExchange.loadMarkets();
+                // console.log(symbol);
+                // setBreakpoint();
                 var price = await selectedExchange.fetchOHLCV(symbol, "1d", selectedDate)
                 return price[0][1];
             }
