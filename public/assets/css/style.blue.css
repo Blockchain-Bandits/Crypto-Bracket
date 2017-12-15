@@ -1,9 +1,7 @@
 /*
 =========================================
 =========================================
-
 Bootstrapious Dashboard Template 1.1
-
 =========================================
 ========================================= */
 /*
@@ -1668,11 +1666,9 @@ section.forms .input-group-btn .dropdown-menu a {
 }
 
 /*
-
 =====================
 STYLE SWITCHER FOR DEMO
 =====================
-
 */
 #style-switch-button {
   position: fixed;
@@ -1818,7 +1814,7 @@ STYLE SWITCHER FOR DEMO
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   line-height: 1.25;
-  border-radius: 0.25rem;
+  border-radius: 0;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
 }
@@ -2730,5 +2726,4 @@ a.text-light:focus, a.text-light:hover {
 }
 
 a.text-dark:focus, a.text-dark:hover {
-  color: #1d2124 !important;
-}
+color: #1d2124 !important;
