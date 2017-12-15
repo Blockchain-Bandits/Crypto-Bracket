@@ -116,4 +116,23 @@ $(document).ready(function(){
         });
 
 
+
+$(document).ready(function(){       
+            var scroll_pos = 0;
+            $(document).scroll(function() { 
+                scroll_pos = $(this).scrollTop();
+                
+                if(scroll_pos > 50) {
+                    $("button").css('background-color', '');
+                    $("button").addClass('animated slideInRight');
+                    $("button").addClass('visibility: visible');
+            
+                } else {
+                    $("button").css('background-color', '');
+                    $("button").addClass('');
+                }
+            });
+        });
+
+
 });
