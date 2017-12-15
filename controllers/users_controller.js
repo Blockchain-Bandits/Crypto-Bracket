@@ -5,7 +5,6 @@ var db = require('../models/user.js')(sequelize, DataTypes);
 
 //this is the users_controller.js file
 exports.nameUser = function (req, res) {
-  console.log(req.user);
   res.json({
     firstname:req.user.firstname,
     lastname:req.user.lastname,

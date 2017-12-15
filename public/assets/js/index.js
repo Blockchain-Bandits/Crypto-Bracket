@@ -64,6 +64,14 @@ $(document).ready(function () {
         $('#nameDisp').text(res.username);
       }
     }
+
+    if (!res.firstname && !res.username) {
+      $('.logout').attr('href','/login');
+      $('.logout').text('Login');
+    } else {
+      $('.logout').attr('href','/users/sign-out');
+      $('.logout').text('Logout');
+    }
   });
 
 });
