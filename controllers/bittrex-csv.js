@@ -8,13 +8,11 @@ var TransactionsLIFO = require("../models/transactionsLIFO.js");
 var mysql = require("mysql");
 var ccxt = require('ccxt');
 
-function user(req,res) {
-    req.body.UserId = req.user.id;
-    return req.body.UserId;
-};
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
     app.post('/upload', function(req, res) {
+        var user = req.user.id;
         var file = req.files.orders;
         console.log(file);
         file.mv(__dirname + '/uploads/orders.csv', function(err) {
@@ -88,7 +86,7 @@ module.exports = function(app) {
                         sellPrice = price;
                     }
                     var buyData = {
-                        user_id: user(),
+                        user_id: user,
                         coin: data.targetCoin,
                         cost: buyPrice,
                         date: data.date,
@@ -98,7 +96,7 @@ module.exports = function(app) {
                         total_cost: buyPrice * buyUnits,
                     };
                     var sellData = {
-                        user_id: user(),
+                        user_id: user,
                         coin: data.heldCoin,
                         date: data.date,
                         price: sellPrice,
@@ -148,7 +146,7 @@ module.exports = function(app) {
                 var totalUnits = 0;
                 TransactionsAvg.findAll({
                     where: {
-                        user_id: user(),
+                        user_id: user,
                         coin: data[avgCount].coin
                     }
                 }).then(function(res) {
@@ -162,7 +160,7 @@ module.exports = function(app) {
                     var cost = (res.length < 1 || totalUnits === 0) ? data[avgCount].price : totalCost / totalUnits;
                     var total_cost = -cost * data[avgCount].units;
                     var sellData = {
-                        user_id: user(),
+                        user_id: user,
                         coin: data[avgCount].coin,
                         cost: -cost,
                         date: data[avgCount].date,
@@ -183,10 +181,11 @@ module.exports = function(app) {
         }
         var FIFOCount = 0;
         function calculateFIFO(data) {
+            var user = req.user.id;
             if (FIFOCount < data.length) {
                 TransactionsFIFO.findAll({
                     where: {
-                        user_id: user(),
+                        user_id: user,
                         coin: data[FIFOCount].coin
                     },
                     order: ["date"]
@@ -228,7 +227,7 @@ module.exports = function(app) {
                     var cost = (res.length < 1) ? data[FIFOCount].price : totalCost / data[FIFOCount].units;
                     var total_cost = -cost * data[FIFOCount].units;
                     var sellData = {
-                        user_id: user(),
+                        user_id: user,
                         coin: data[FIFOCount].coin,
                         cost: -cost,
                         date: data[FIFOCount].date,
@@ -247,10 +246,11 @@ module.exports = function(app) {
         }
         var LIFOCount = 0;
         function calculateLIFO(data) {
+            var user = req.user.id;
             if (LIFOCount < data.length) {
                 TransactionsLIFO.findAll({
                     where: {
-                        user_id: user(),
+                        user_id: user,
                         coin: data[LIFOCount].coin
                     },
                     order: ["date"]
@@ -290,7 +290,7 @@ module.exports = function(app) {
                     var cost = (res.length < 1) ? data[LIFOCount].price : totalCost / data[LIFOCount].units;
                     var total_cost = -cost * data[LIFOCount].units;
                     var sellData = {
-                        user_id: user(),
+                        user_id: user,
                         coin: data[LIFOCount].coin,
                         cost: -cost,
                         date: data[LIFOCount].date,
