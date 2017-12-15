@@ -5,8 +5,8 @@ $(document).ready(function() {
     var exchangesList = {
         info: [
             "acx", "allcoin", "bitfinex", "bitfinex2",
-            "bitmarket", "bitmex", "bittrex",
-            "btcexchange", "gdax", "hitbtc2", "huobi", "kraken",
+            "bitmarket", "bittrex",
+            "btcexchange", "hitbtc2", "huobi", "kraken",
             "okcoincny", "okcoinusd", "okex", "poloniex"
         ]
     };
