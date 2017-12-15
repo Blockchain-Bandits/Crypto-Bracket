@@ -7,10 +7,12 @@ var TransactionsFIFO = require("../models/transactionsFIFO.js");
 var TransactionsLIFO = require("../models/transactionsLIFO.js");
 var mysql = require("mysql");
 var ccxt = require('ccxt');
-var user = 1;
+
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
     app.post('/upload', function(req, res) {
+        var user = req.user.id;
         var file = req.files.orders;
         console.log(file);
         file.mv(__dirname + '/uploads/orders.csv', function(err) {
@@ -179,6 +181,7 @@ module.exports = function(app) {
         }
         var FIFOCount = 0;
         function calculateFIFO(data) {
+            var user = req.user.id;
             if (FIFOCount < data.length) {
                 TransactionsFIFO.findAll({
                     where: {
@@ -243,6 +246,7 @@ module.exports = function(app) {
         }
         var LIFOCount = 0;
         function calculateLIFO(data) {
+            var user = req.user.id;
             if (LIFOCount < data.length) {
                 TransactionsLIFO.findAll({
                     where: {
