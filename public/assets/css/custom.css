@@ -3,50 +3,50 @@
 	border-color: black;
 	border-style: solid;
 	border-width: 5px;
-};
+}
 
 #form2 {
 	border-color: black;
 	border-style: solid;
 	border-width: 10px;
 
-};
+}
 
 #alignRight {
   	align-items: flex-end;
-};
+}
 
 #btnLogout {
     position: absolute;
     left: 600px;
-};
+}
 
 #financeChartExample {
-    height: 400px;
-};
+    height: 500px;
+}
 
 .navbar {
   min-height: 80px;
   max-height:80px;
-};
+}
 
 .navbar-brand {
   padding: 0 15px;
   height: 80px;
   line-height: 80px;
 
-};
+}
 
 .navbar-brand a:hover {
  color: yellow;
 
-};
+}
 
 .navbar-toggle {
   /* (80px - button height 34px) / 2 = 23px */
   margin-top: 23px;
   padding: 9px 10px !important;
-};
+}
 
 @media (min-width: 768px) {
   .navbar-nav > li > a {
