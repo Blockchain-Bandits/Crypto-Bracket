@@ -746,6 +746,7 @@ section.dashboard-header {
   background: #fff;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
+  margin-bottom: 40px;
 }
 
 section.dashboard-header .check-lists {
