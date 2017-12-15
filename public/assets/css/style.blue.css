@@ -1,9 +1,7 @@
 /*
 =========================================
 =========================================
-
 Bootstrapious Dashboard Template 1.1
-
 =========================================
 ========================================= */
 /*
@@ -291,7 +289,7 @@ button {
 * ==========================================================
 */
 nav.navbar {
-  background: #393836;
+  background: black;
   padding: 2.0rem 0;
   /* Navbar Brand --------- */
   /*  Dropdowns ------------ */
@@ -338,7 +336,6 @@ nav.navbar a.navbar-brand {
 }
 
 nav.navbar a.navbar-brand:hover {
-  background:hotpi;
   
 }
 
@@ -407,7 +404,7 @@ nav.navbar a.menu-btn {
   width: 40px;
   height: 40px;
   line-height: 40px;
-  background: #292929;
+  background: black;
   color: #fff;
   text-align: center;
   padding: 0 !important;
@@ -458,7 +455,7 @@ nav.side-navbar {
   height: 100%;
   width: 200px;
   text-align: left;
-  background: #393836;
+  background: black;
   color: #fff;
   -webkit-transition: all 0.3s linear;
   transition: all 0.3s linear;
@@ -1668,11 +1665,9 @@ section.forms .input-group-btn .dropdown-menu a {
 }
 
 /*
-
 =====================
 STYLE SWITCHER FOR DEMO
 =====================
-
 */
 #style-switch-button {
   position: fixed;
@@ -1818,7 +1813,7 @@ STYLE SWITCHER FOR DEMO
   padding: 0.5rem 0.75rem;
   font-size: 1rem;
   line-height: 1.25;
-  border-radius: 0.25rem;
+  border-radius: 0;
   -webkit-transition: all 0.15s ease-in-out;
   transition: all 0.15s ease-in-out;
 }
@@ -2730,5 +2725,4 @@ a.text-light:focus, a.text-light:hover {
 }
 
 a.text-dark:focus, a.text-dark:hover {
-  color: #1d2124 !important;
-}
+color: #1d2124 !important;

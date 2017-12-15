@@ -66,10 +66,12 @@ $(document).ready(function(){
             var scroll_pos = 0;
             $(document).scroll(function() { 
                 scroll_pos = $(this).scrollTop();
-                if(scroll_pos > 10) {
-                    $("Button").css('style', '');
+                if(scroll_pos > 50) {
+                    $("nav").css('background-color', 'white');
+                    $("nav a").css('color', 'black');
                 } else {
-                    $("Button").css('style', 'animated slideInRight');
+                    $("nav").css('background-color', 'black');
+                    $("nav a").css('color', 'white');
                 }
             });
         });
