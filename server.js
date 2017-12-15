@@ -49,17 +49,20 @@ app.use(fileUpload());
 // The below points our server to a series of "route" files.
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 120000000 }
+}));
 
 require("./routes/htmlRoutes")(app);
-require("./controllers/ccxt")(app);
-
 require("./controllers/bittrex-csv.js")(app);
-
-var routes = require("./controllers/transactions-controller.js");
-
 require("./controllers/ccxt")(app);
 require('./routes')(app);
-require("./controllers/transactions-controller.js");
+
+var routes = require("./controllers/transactions-controller.js");
+app.use('/', routes);
 
 
 app.use(function (req, res, next) {
