@@ -124,7 +124,7 @@ $(document).ready(function(){
                 
                 if(scroll_pos > 50) {
                     $("button").css('background-color', '');
-                    $("button").addClass('animated slideInRight');
+                    $("button").addClass('animated flip');
                     $("button").addClass('visibility: visible');
             
                 } else {
