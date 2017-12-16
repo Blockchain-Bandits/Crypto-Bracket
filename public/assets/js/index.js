@@ -74,6 +74,12 @@ $(document).ready(function () {
     }
   });
 
+  $.get('/api/index', function(res) {
+    $('#btc').text("$" + res.btc);
+    $('#eth').text("$" + res.eth);
+    $('#ltc').text("$" + res.ltc);
+  });  
+
 });
 
 // $(document).ready(function(){       
