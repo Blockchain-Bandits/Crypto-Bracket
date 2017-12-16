@@ -34,9 +34,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-  secret: config.sessionKey,
-  resave: true,
-  saveUninitialized: true
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 120000000 }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -49,12 +50,6 @@ app.use(fileUpload());
 // The below points our server to a series of "route" files.
 // These routes give our server a "map" of how to respond when users visit or request data from various URLs.
 // ================================================================================
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 120000000 }
-}));
 
 require("./routes/htmlRoutes")(app);
 require("./controllers/bittrex-csv.js")(app);

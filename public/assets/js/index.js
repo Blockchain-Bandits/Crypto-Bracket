@@ -6,39 +6,41 @@ function parallaxIt() {
   var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
   // on window scroll event
-  $fwindow.on('scroll resize', function() {
+  $fwindow.on('scroll resize', function () {
     scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  }); 
+  });
 
   // for each of content parallax element
   $('[data-type="content"]').each(function (index, e) {
     var $contentObj = $(this);
     var fgOffset = parseInt($contentObj.offset().top);
     var yPos;
-    var speed = ($contentObj.data('speed') || 1 );
+    var speed = ($contentObj.data('speed') || 1);
 
-    $fwindow.on('scroll resize', function (){
-      yPos = fgOffset - scrollTop / speed; 
+    $fwindow.on('scroll resize', function () {
+      yPos = fgOffset - scrollTop / speed;
 
       $contentObj.css('top', yPos);
     });
   });
 
   // for each of background parallax element
-  $('[data-type="background"]').each(function(){
+  $('[data-type="background"]').each(function () {
     var $backgroundObj = $(this);
     var bgOffset = parseInt($backgroundObj.offset().top);
     var yPos;
     var coords;
-    var speed = ($backgroundObj.data('speed') || 0 );
+    var speed = ($backgroundObj.data('speed') || 0);
 
-    $fwindow.on('scroll resize', function() {
-      yPos = - ((scrollTop - bgOffset) / speed); 
-      coords = '40% '+ yPos + 'px';
+    $fwindow.on('scroll resize', function () {
+      yPos = -((scrollTop - bgOffset) / speed);
+      coords = '40% ' + yPos + 'px';
 
-      $backgroundObj.css({ backgroundPosition: coords });
-    }); 
-  }); 
+      $backgroundObj.css({
+        backgroundPosition: coords
+      });
+    });
+  });
 
   // triggers winodw scroll for refresh
   $fwindow.trigger('scroll');
@@ -46,6 +48,33 @@ function parallaxIt() {
 
 parallaxIt();
 
+$(document).ready(function () {
+
+  $.get('/users/name', function (res) {
+    if (!res.firstname && !res.username) {
+      $("#nameDisp").text('Welcome!');
+    } else {
+      if (res.firstname) {
+        if (res.lastname) {
+          $("#nameDisp").text(res.firstname + " " + res.lastname);
+        } else {
+          $("#nameDisp").text(res.firstname);
+        }
+      } else {
+        $('#nameDisp').text(res.username);
+      }
+    }
+
+    if (!res.firstname && !res.username) {
+      $('.logout').attr('href','/login');
+      $('.logout').text('Login');
+    } else {
+      $('.logout').attr('href','/users/sign-out');
+      $('.logout').text('Logout');
+    }
+  });
+
+});
 
 // $(document).ready(function(){       
 //             var scroll_pos = 0;
@@ -75,4 +104,3 @@ parallaxIt();
 //                 }
 //             });
 //         });
-
