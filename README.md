@@ -4,9 +4,9 @@
 
 Crypto Bracket is a tool that allows crypto currency investors to:
 
--Lookup current and historical coin prices
--View a portfolio dashboard, holdings by coin, and transaction details
--Track realized and unrealized gains and losses and tax basis by transaction
+- Lookup current and historical coin prices
+- View a portfolio dashboard, holdings by coin, and transaction details
+- Track realized and unrealized gains and losses and tax basis by transaction
 
 ### Live Link
 

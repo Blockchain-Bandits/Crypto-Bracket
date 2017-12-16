@@ -61,6 +61,25 @@ router.get("/api/transactions/:coin/:method", isAuthenticated, function(req, res
         }
     });
 });
+router.get("/api/index", isAuthenticated, function(req, res) {
+    var btc = 0;
+    var eth = 0;
+    var ltc = 0;
+    bittrex.getticker( { market : "USDT-BTC" }, function( data, err ) {
+        btc = data.result.Last;
+        bittrex.getticker( { market : "BTC-ETH" }, function( data, err ) {
+            eth = data.result.Last * btc;
+            bittrex.getticker( { market : "BTC-LTC" }, function( data, err ) {
+                ltc = data.result.Last * btc;
+                res.json({
+                    btc: btc.toFixed(2),
+                    eth: eth.toFixed(2),
+                    ltc: ltc.toFixed(2)
+                });
+            });
+        });
+    });
+});
 router.get("/api/transactions", isAuthenticated, function(req, res) {
     var user = req.user.id;
     TransactionsAvg.findAll({
