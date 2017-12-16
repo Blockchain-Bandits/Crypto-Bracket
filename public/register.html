@@ -41,16 +41,23 @@
         <div class="nav">
             <nav class="navbar navbar-default fixed-top" style="background-color: transparent;">
                 <div class="container-fluid">
-                     <img src="assets/img/crypto-bracket-logo-2.png" alt="Company Logo">
+                    <img src="assets/img/crypto-bracket-logo-2.png" alt="Company Logo">
                     <a class="navbar-brand" href="#"></a>
                     <div class="d-flex flex-row-reverse">
-                        <a href ="/login"> <button type="button" class="btn btn-dark animated slideInRight">Login</button> </a>
+                        <a href="/login">
+                            <button type="button" class="btn btn-dark animated slideInRight">Login</button>
+                        </a>
                         <div class="p-2">
                         </div>
-                        <div class="p-2"><a href="/explore"><h1>Explore </h1>    </a></div>
+                        <div class="p-2">
+                            <a href="/explore">
+                                <h1>Explore </h1>
+                            </a>
+                        </div>
                         <div class="p-2">
                             <a href="/about">
-                                <h1>About </h1> </a>
+                                <h1>About </h1>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -62,24 +69,32 @@
                 <div class="image" data-type="background" data-speed="2"></div>
                 <div class="stuff" data-type="content">
                     <div class="container">
-                        <div class="form-outer text-center d-flex align-items-center" ">
-                    <div id="form1 " class="form-inner ">
-                        <div class="logo text-uppercase "><span>Crypto</span><strong class="text-primary ">Bracket</strong></div>
-                       
-                        <form id="login-form " method="post ">
-                            <div class="form-group ">
-                                <label for="login-username " class="label-custom ">User Name</label>
-                                <input id="login-username " type="text " name="loginUsername " required=" ">
-                            </div>
-                            <div class="form-group ">
-                                <label for="login-password " class="label-custom ">Password</label>
-                                <input id="login-password " type="password" name="loginPassword " required=" ">
-                            </div>
+                        <div class="form-outer text-center d-flex align-items-center">
+                            <div id="form1" class="form-inner">
+                                <div class="logo text-uppercase">
+                                    <span>Crypto</span>
+                                    <strong class="text-primary">Bracket</strong>
+                                </div>
 
-                            <div class="form-group ">
-                                <label for="firstName " class="label-custom ">First Name</label>
-                                <input id="firstName " type="text" name="first-Name " required=" ">
-                            </div>
+                                <form id="login-form">
+                                    <div class="form-group username-form">
+                                        <label for="login-username" class="label-custom">User Name</label>
+                                        <input id="login-username" type="text" required=" ">
+                                        <small id="username-feedback" class=""></small>
+                                    </div>
+                                    
+                                    <div class="form-group email-form">
+                                        <label for="login-password" class="label-custom">Password</label>
+                                        <input id="login-password" type="password" required=" ">
+                                        <small id="password-feedback" class=""></small>
+                                    </div>
+
+                                    <div class="form-group password-form">
+                                        <label for="login-email" class="label-custom">Email</label>
+                                        <input id="login-email" type="email" required=" ">
+                                        <p id="email-feedback" class=""></p>
+                                        <small id="email-additional-feedback" class="form-text text-muted"></small>
+                                    </div>
 
 
                             <div class="form-group ">
@@ -91,59 +106,63 @@
 <img id="blah" src="http://placehold.it/180" alt="your image" /> -->
                             
 
+                                    <button type="submit" class="btn btn-primary btn-lg signup">Sign Up</button>
+                                    <!-- This should be submit button but I replaced it with <a> for demo purposes-->
+                                </form>
+                                <a href="/login" class="login" style="color: black">Back to Login</a>
+                            </div>
 
-                            <a id="login " href="/index " class="btn btn-primary btn-lg ">Sign Up</a>
-                            <!-- This should be submit button but I replaced it with <a> for demo purposes-->
-                        </form>
-                        <a href="/login " class="login " style="color: black">Back to Login</a>
+                        </div>
                     </div>
-                  
                 </div>
-            </div>
-</div>
             </section>
-<p>
-    <a href ="/terms ">Terms of Service</a> | 
-    <a href ="/contact ">Contact</a>
-    </p>
+            <p>
+                <a href="/terms">Terms of Service</a> |
+                <a href="/contact">Contact</a>
+            </p>
             <br>
             <br>
             <br>
         </div>
         <!-- Javascript files-->
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js "></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <!-- MDB core JavaScript -->
         <script type="text/javascript" src="assets/mdb/js/mdb.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js ">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js">
         </script>
-        <script src="assets/vendor/bootstrap/js/bootstrap.min.js "></script>
-        <script src="assets/vendor/jquery.cookie/jquery.cookie.js ">
+        <script src="assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/vendor/jquery.cookie/jquery.cookie.js">
         </script>
-        <script src="assets/js/grasp_mobile_progress_circle-1.0.0.min.js "></script>
-        <script src="assets/vendor/jquery-validation/jquery.validate.min.js "></script>
-        <script src="assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js "></script>
-        <script src="assets/js/front.js "></script>
+        <script src="assets/js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
+        <script src="assets/vendor/jquery-validation/jquery.validate.min.js"></script>
+        <script src="assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+        <script src="assets/js/front.js"></script>
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID.-->
         <!---->
         <script>
-        (function(b, o, i, l, e, r) {
-            b.GoogleAnalyticsObject = l;
-            b[l] || (b[l] =
-                function() {
-                    (b[l].q = b[l].q || []).push(arguments) });
-            b[l].l = +new Date;
-            e = o.createElement(i);
-            r = o.getElementsByTagName(i)[0];
-            e.src = '//www.google-analytics.com/analytics.js';
-            r.parentNode.insertBefore(e, r)
-        }(window, document, 'script', 'ga'));
-        ga('create', 'UA-XXXXX-X');
-        ga('send', 'pageview');
+            (function (b, o, i, l, e, r) {
+                b.GoogleAnalyticsObject = l;
+                b[l] || (b[l] =
+                    function () {
+                        (b[l].q = b[l].q || []).push(arguments)
+                    });
+                b[l].l = +new Date;
+                e = o.createElement(i);
+                r = o.getElementsByTagName(i)[0];
+                e.src = '//www.google-analytics.com/analytics.js';
+                r.parentNode.insertBefore(e, r)
+            }(window, document, 'script', 'ga'));
+            ga('create', 'UA-XXXXX-X');
+            ga('send', 'pageview');
         </script>
-        <script  src="assets/js/index.js "></script>
-  <div class="copyrights text-center ">
-                        <p>Partial Design: <a href="https://bootstrapious.com " class="external ">Bootstrapious</a></p>
-                        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-                    </div>
-                </body>
+        <script src="assets/js/index.js"></script>
+        <script src="assets/js/register.js"></script>
+        <div class="copyrights text-center ">
+            <p>Partial Design:
+                <a href="https://bootstrapious.com " class="external ">Bootstrapious</a>
+            </p>
+            <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+        </div>
+</body>
+
 </html>

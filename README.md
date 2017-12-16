@@ -1,4 +1,4 @@
-# Fruit Drop
+# Crypto Bracket
 
 ### About
 
@@ -15,16 +15,16 @@ Crypto Bracket is a tool that allows crypto currency investors to:
 ## Screenshots
 
 ### Historical Prices
-![screenshot](public/assets/images/graph.png)
+![screenshot](public/assets/img/graph.png)
 
 ### Portfolio Dashboard
-![screenshot](public/assets/images/dashboard.png)
+![screenshot](public/assets/img/dashboard.png)
 
 ### Holdings Summary
-![screenshot](public/assets/images/portfolio.png)
+![screenshot](public/assets/img/portfolio.png)
 
 ### Transaction Details
-![screenshot](public/assets/images/transactions.png)
+![screenshot](public/assets/img/transactions.png)
 
 
 ### Installation

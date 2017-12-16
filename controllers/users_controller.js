@@ -4,8 +4,12 @@ var sequelize = require("../config/connection.js");
 var db = require('../models/user.js')(sequelize, DataTypes);
 
 //this is the users_controller.js file
-exports.registrationPage = function (req, res) {
-  res.send(path.join(__dirname, "../public/register.html"));
+exports.nameUser = function (req, res) {
+  res.json({
+    firstname:req.user.firstname,
+    lastname:req.user.lastname,
+    username:req.user.username
+  });
 };
 
 exports.signOutUser = function (req, res) {
@@ -36,7 +40,9 @@ exports.signUpUser = function (req, res) {
       db.create({
         username: req.body.username,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
       }).then(function() {
         res.send({redirect: '/'});
       }).catch(function(err) {
