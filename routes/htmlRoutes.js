@@ -9,7 +9,7 @@ module.exports = function (app) {
   // ---------------------------------------------------------------------------
 
   app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/charts.html"));
+    res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
   app.get("/transactions", isAuthenticated, function (req, res) {
@@ -22,7 +22,7 @@ module.exports = function (app) {
   });
 
   app.get("/charts", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/charts.html"));
+    res.sendFile(path.join(__dirname, "../public/index.html"));
   });
 
   app.get("/login", function (req, res) {
@@ -37,8 +37,8 @@ module.exports = function (app) {
     res.sendFile(path.join(__dirname, "../public/about.html"));
   });
 
-  app.get("/index", function (req, res) {
-    res.sendFile(path.join(__dirname, "../public/index.html"));
+  app.get("/home", isAuthenticated, function (req, res) {
+    res.sendFile(path.join(__dirname, "../public/home.html"));
   });
 
   app.get("/explore", function (req, res) {
