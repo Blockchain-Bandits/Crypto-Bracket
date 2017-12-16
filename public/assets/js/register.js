@@ -74,7 +74,6 @@ $(document).ready(function () {
 
     if (userData.lastName) {
       userData.lastName = userData.lastName.substring(0, 1).toUpperCase() + userData.lastName.substring(1);
-      alert(userData.lastName);
     }
 
     if (!userData.username || !userData.email || !userData.password) {
