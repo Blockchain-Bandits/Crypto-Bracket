@@ -10,7 +10,7 @@ Crypto Bracket is a tool that allows crypto currency investors to:
 
 ### Live Link
 
-
+http://immense-oasis-47269.herokuapp.com/
 
 ## Screenshots
 
@@ -27,9 +27,10 @@ Crypto Bracket is a tool that allows crypto currency investors to:
 ![screenshot](public/assets/img/transactions.png)
 
 
-### Installation
+### Upload Transactions
 
-All you need is a browser like Chrome and internet access.
+Download your Bittrex orders (see below; Click CSV button on completed orders) and upload the file on the portfolio page.
+![screenshot](public/assets/img/bittrex.png)
 
 ### Authors
 
