@@ -10,7 +10,7 @@ Crypto Bracket is a tool that allows crypto currency investors to:
 
 ### Live Link
 
-http://immense-oasis-47269.herokuapp.com/
+https://crypto-bracket.herokuapp.com/
 
 ## Screenshots
 
