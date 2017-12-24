@@ -12,7 +12,7 @@ $(document).ready(function() {
         console.log(tableData);
         console.log("------------------------------------");
 
-        // Loop through and display each of the customers
+        // Loop through and display each of the coins
         for (var i = 0; i < tableData.length; i++) {
             $("#select-coin").append("<option value='" + tableData[i].coin + "'>" + tableData[i].coin + "</option>");
         }
@@ -30,7 +30,7 @@ $(document).ready(function() {
             console.log(tableData);
             
             var length = tableData.length - 1;
-            // Loop through and display each of the customers
+            // Loop through and display each transaction
             for (var i = 0; i < length; i++) {
                 var date = moment(tableData[i].date).format("MM/DD/YY");
                 var price = tableData[i].units < 0 ? tableData[i].price : tableData[length].currentPrice;
