@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Blockchain-Bandits/Crypto-Bracket#readme",
   "devDependencies": {
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^3.4.1",
     "font-awesome": "^4.6.3",
     "jquery": "^3.5.0"
   },
