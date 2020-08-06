@@ -19,7 +19,7 @@
   "devDependencies": {
     "bootstrap": "^3.3.7",
     "font-awesome": "^4.6.3",
-    "jquery": "^1.11.3"
+    "jquery": "^3.5.0"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
