@@ -27,7 +27,7 @@
     "ccxt": "^1.10.337",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.3",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "express-fileupload": "^1.1.9",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
